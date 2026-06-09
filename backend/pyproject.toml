@@ -11,6 +11,7 @@ dependencies = [
     "greenlet>=3.5.1",
     "groq>=1.2.0",
     "litestar[standard]>=2.22.0",
+    "sentry-sdk>=2.30.0",
     "numpy>=2.4.6",
     "phonemizer>=3.3.0",
     "pydantic-settings>=2.14.1",

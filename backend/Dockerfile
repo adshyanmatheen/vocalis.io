@@ -46,7 +46,8 @@ COPY pyproject.toml uv.lock ./
 COPY alembic.ini ./
 COPY migrations ./migrations
 
-RUN groupadd --system vocalis \
+RUN DATABASE_URL="sqlite+aiosqlite:///./build.db" JWT_SECRET_KEY="placeholder-during-build" python scripts/warm_models.py \
+    && groupadd --system vocalis \
     && useradd --system --gid vocalis --home-dir /app --shell /usr/sbin/nologin vocalis \
     && chown -R vocalis:vocalis /app
 

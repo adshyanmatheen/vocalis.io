@@ -71,6 +71,15 @@ export type AccountSummary = AccountSummaryResponse & {
   }
 }
 
+const CSRF_COOKIE_NAME = 'csrf_token'
+
+export function csrfHeader(): Record<string, string> {
+  if (typeof document === 'undefined') return {}
+  const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${CSRF_COOKIE_NAME}=([^;]*)`))
+  const token = match?.[1] ?? ''
+  return token ? { 'X-CSRF-Token': token } : {}
+}
+
 const withCredentials = {
   credentials: 'include' as const,
 }
@@ -91,6 +100,7 @@ export const refreshUserSession = async (signal?: AbortSignal): Promise<boolean>
   const response = await fetch(`${getApiBaseUrl()}/auth/refresh`, {
     method: 'POST',
     ...withCredentials,
+    headers: { ...csrfHeader() },
     signal,
   })
   return response.ok
@@ -127,6 +137,7 @@ export const logoutUser = async (signal?: AbortSignal): Promise<boolean> => {
   const response = await fetch(`${getApiBaseUrl()}/auth/logout`, {
     method: 'POST',
     ...withCredentials,
+    headers: { ...csrfHeader() },
     signal,
   })
 

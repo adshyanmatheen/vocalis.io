@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
-import { getApiBaseUrl } from '@/lib/api'
+import { csrfHeader, getApiBaseUrl } from '@/lib/api'
 import { PageBackground, DotMetersRow } from '@/lib/page-layouts'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -36,7 +36,7 @@ export default function SignIn() {
     try {
       const response = await fetch(`${getApiBaseUrl()}/auth/login`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...csrfHeader() },
         credentials: 'include',
         body: JSON.stringify({
           username: trimmedUsername,

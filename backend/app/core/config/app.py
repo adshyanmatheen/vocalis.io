@@ -89,6 +89,8 @@ class AppSettings(BaseSettings):
 
     backup_retention_days: int = Field(default=30, ge=1)
 
+    sentry_dsn: str | None = Field(default=None)
+
     @field_validator("database_url", mode="before")
     @classmethod
     def normalize_sqlite_database_url(cls, value: str) -> str:

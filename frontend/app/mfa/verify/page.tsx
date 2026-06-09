@@ -6,7 +6,7 @@ import { ShieldCheckIcon, type ShieldCheckIconHandle } from '@/components/ui/shi
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp'
 import { clickSoftSound } from '@/lib/click-soft'
 import { error005Sound } from '@/lib/error-005'
-import { getApiBaseUrl } from '@/lib/api'
+import { csrfHeader, getApiBaseUrl } from '@/lib/api'
 import { PageBackground, DotMetersRow } from '@/lib/page-layouts'
 import { playSound } from '@/lib/sound-engine'
 import { successChimeSound } from '@/lib/success-chime'
@@ -78,7 +78,7 @@ export default function MFAVerification() {
 
       const response = await fetch(`${getApiBaseUrl()}${request.endpoint}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...csrfHeader() },
         credentials: 'include',
         body: JSON.stringify(request.body),
       })

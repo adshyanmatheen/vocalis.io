@@ -3,7 +3,7 @@
 import { QRCode } from '@/components/shared-assets/qr-code'
 import { ArrowRightIcon, type ArrowRightIconHandle } from '@/components/ui/arrow-right'
 import { Button } from '@/components/ui/button'
-import { getApiBaseUrl } from '@/lib/api'
+import { csrfHeader, getApiBaseUrl } from '@/lib/api'
 import { PageBackground, DotMetersRow } from '@/lib/page-layouts'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
@@ -45,7 +45,7 @@ export default function MultiFactorAuthentication() {
       try {
         const response = await fetch(`${getApiBaseUrl()}/auth/mfa/setup`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', ...csrfHeader() },
           credentials: 'include',
           signal: abortController.signal,
         })

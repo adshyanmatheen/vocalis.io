@@ -18,9 +18,11 @@ from app.api.websockets.assessment import (
 from app.core.config import (
     settings,
 )
+from app.core.csrf import create_csrf_middleware
 from app.core.logging import configure_logging
 from app.core.observability import create_request_observability_middleware
 from app.core.security import create_security_headers_middleware
+from app.core.sentry import create_sentry_middleware, init_sentry
 from app.domain.auth.dependencies import (
     provide_current_user,
 )
@@ -44,6 +46,7 @@ from app.domain.models import (
 )
 
 configure_logging()
+init_sentry()
 
 
 async def _startup() -> None:
@@ -65,7 +68,7 @@ app = Litestar(
         allow_origins=settings.app.cors_allowed_origins,
         allow_credentials=True,
         allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-        allow_headers=["Content-Type", "Authorization"],
+        allow_headers=["Content-Type", "Authorization", "X-CSRF-Token"],
     ),
     dependencies={
         "database_session": (Provide(provide_database_session)),
@@ -73,6 +76,8 @@ app = Litestar(
         "authenticated_user": (require_authenticated_user_provide),
     },
     middleware=[
+        DefineMiddleware(create_csrf_middleware),
+        DefineMiddleware(create_sentry_middleware),
         DefineMiddleware(create_security_headers_middleware),
         DefineMiddleware(create_request_observability_middleware),
     ],
