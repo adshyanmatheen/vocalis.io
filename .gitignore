@@ -112,7 +112,7 @@ temp/
 
 # Artificial Intelligence & Finetuned Wav2Vec2 Model Related Files And Directories
 .cache/huggingface/
-models/
+/models/
 *.pth
 *.pt
 *.onnx

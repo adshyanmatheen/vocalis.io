@@ -25,7 +25,7 @@ env/
 .cache/
 backend/.cache/
 huggingface/
-models/
+/models/
 
 # Database Files
 *.db
