@@ -30,15 +30,9 @@ from app.domain.auth.security import (
 from app.domain.database.models.user import (
     User,
 )
+from app.domain.utils import normalize_datetime
 
 auth_repository = AuthRepository()
-
-
-def normalize_datetime(value: datetime) -> datetime:
-    if value.tzinfo is None:
-        return value.replace(tzinfo=UTC)
-
-    return value
 
 
 async def provide_current_user(

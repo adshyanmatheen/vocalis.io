@@ -42,6 +42,7 @@ from app.domain.auth.totp import (
 from app.domain.database.models.user import (
     User,
 )
+from app.domain.utils import normalize_datetime
 
 
 class MFAService:
@@ -55,12 +56,6 @@ class MFAService:
 
     def hash_temporary_token(self, temporary_token: str) -> str:
         return hashlib.sha256(temporary_token.encode("utf-8")).hexdigest()
-
-    def normalize_datetime(self, value: datetime) -> datetime:
-        if value.tzinfo is None:
-            return value.replace(tzinfo=UTC)
-
-        return value
 
     async def issue_challenge(
         self,
@@ -152,7 +147,7 @@ class MFAService:
         if challenge.used_at is not None:
             raise InvalidMFAChallengeError("The MFA Challenge Has Already Been Used.")
 
-        if self.normalize_datetime(challenge.expires_at) <= now:
+        if normalize_datetime(challenge.expires_at) <= now:
             raise InvalidMFAChallengeError("The MFA Challenge Has Expired.")
 
         user = await self.repository.get_user_by_id(

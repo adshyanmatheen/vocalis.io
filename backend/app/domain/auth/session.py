@@ -29,17 +29,12 @@ from app.domain.auth.security import (
 from app.domain.database.models.user import (
     User,
 )
+from app.domain.utils import normalize_datetime
 
 
 class AuthSessionService:
     def __init__(self) -> None:
         self.repository = AuthRepository()
-
-    def normalize_datetime(self, value: datetime) -> datetime:
-        if value.tzinfo is None:
-            return value.replace(tzinfo=UTC)
-
-        return value
 
     def build_authenticated_user(self, user: User) -> AuthenticatedUser:
         return AuthenticatedUser(
@@ -98,7 +93,7 @@ class AuthSessionService:
             return None
 
         now = datetime.now(UTC)
-        if self.normalize_datetime(session.expires_at) <= now:
+        if normalize_datetime(session.expires_at) <= now:
             await self.repository.delete_session(
                 database_session=database_session,
                 session_token=hash_refresh_token(refresh_token),

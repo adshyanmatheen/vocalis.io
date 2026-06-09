@@ -31,7 +31,7 @@ class PhonemeService:
         )
 
     def decode_predicted_phonemes(
-        self, *, audio_waveform, sample_rate: int
+        self, *, audio_waveform: np.ndarray, sample_rate: int
     ) -> list[PredictedPhonemeSegment]:
         model_bundle = load_phoneme_model_bundle()
         waveform = np.asarray(audio_waveform, dtype=np.float32)
@@ -74,7 +74,7 @@ class PhonemeService:
         *,
         target_text: str,
         word_segments: list[dict[str, Any]],
-        audio_waveform,
+        audio_waveform: np.ndarray,
         sample_rate: int,
     ) -> ScoringPayload:
 

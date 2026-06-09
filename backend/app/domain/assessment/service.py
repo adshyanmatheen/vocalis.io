@@ -4,6 +4,7 @@ import asyncio
 import logging
 from typing import Any
 
+import numpy as np
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
 )
@@ -50,7 +51,7 @@ class AssessmentService:
         database_session: AsyncSession,
         assessment_request: (AssessmentRequest),
         word_segments: list[dict[str, Any]],
-        audio_waveform,
+        audio_waveform: np.ndarray,
         sample_rate: int,
     ) -> AssessmentResult:
         scoring_payload = await asyncio.to_thread(

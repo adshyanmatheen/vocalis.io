@@ -43,6 +43,8 @@ COPY --from=dependencies /app/.venv /app/.venv
 COPY app ./app
 COPY scripts ./scripts
 COPY pyproject.toml uv.lock ./
+COPY alembic.ini ./
+COPY migrations ./migrations
 
 RUN groupadd --system vocalis \
     && useradd --system --gid vocalis --home-dir /app --shell /usr/sbin/nologin vocalis \

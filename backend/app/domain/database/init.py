@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import logging
-import subprocess
-from pathlib import Path
+
+from alembic import command
+from alembic.config import Config
 
 from app.core.config import settings
 from app.domain.database.base import Base
@@ -24,27 +25,9 @@ async def initialize_database():
 
 
 async def run_migrations() -> None:
-    backend_root = Path(__file__).resolve().parents[3]
-    alembic_path = backend_root / ".venv" / "bin" / "alembic"
-
-    if not alembic_path.exists():
-        logger.warning(
-            "Alembic executable not found at %s; skipping migrations.", alembic_path
-        )
-        return
-
     def migrate() -> None:
-        result = subprocess.run(
-            [str(alembic_path), "upgrade", "head"],
-            cwd=backend_root,
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-        if result.stdout:
-            logger.info("Migration output: %s", result.stdout.strip())
-        if result.stderr:
-            logger.warning("Migration stderr: %s", result.stderr.strip())
+        alembic_cfg = Config("alembic.ini")
+        command.upgrade(alembic_cfg, "head")
 
     import asyncio
 

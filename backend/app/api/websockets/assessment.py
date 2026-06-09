@@ -6,6 +6,7 @@ from datetime import UTC, datetime
 from typing import Any
 
 import msgspec
+import numpy as np
 from litestar import WebSocket, websocket
 from litestar.exceptions import (
     NotAuthorizedException,
@@ -463,7 +464,7 @@ async def handle_end_assessment(
 
 
 async def realtime_assessment_service_process(
-    *, waveform, target_text: str, sample_rate: int
+    *, waveform: np.ndarray, target_text: str, sample_rate: int
 ):
     return await process_realtime_window(
         waveform=waveform,
