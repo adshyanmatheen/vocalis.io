@@ -1,0 +1,51 @@
+# Packages And Dependencies Related Files And Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build And Distribution Outputs Related Files And Directories
+.next/
+out/
+dist/
+build/
+
+# Testing And Vitest Related Files And Directories
+coverage/
+.nyc_output/
+
+# Environment Variables And Secrets Releated Files
+.env
+.env.local
+.env.*.local
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Framework Generated And Related Files
+next-env.d.ts
+*.tsbuildinfo
+
+# Logging And Debugging Related Files And Directories
+*.log
+logs/
+
+# Build And Distribution Related Cache Files And Directories
+.turbo/
+bun.lock
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Docker & Virtual Containerization Related Files And Directories
+.dockerignore
+Dockerfile
+
+# Git & Version Control Related Files And Directories
+.git/
+.gitignore

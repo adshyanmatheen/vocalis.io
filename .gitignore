@@ -1,0 +1,118 @@
+# Operating System & Editor Related Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+*~
+.~lock.*
+
+# Integrated Development Environment (IDE) Related Files And Directories
+.vscode/
+.idea/
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
+*.iml
+.classpath
+.c9/
+*.launch
+.settings/
+
+# Docker & Virtual Containerization Related Files And Directories
+backups/
+.cache/
+
+# SQLite And Database Related Files
+vocalis.db
+vocalis.db-shm
+vocalis.db-wal
+*.db
+*.sqlite
+*.sqlite3
+
+# Logging And Debugging Related Files And Directories
+*.log
+*.log.*
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Environmental Variables And Secrets Related Files
+.env
+.env.local
+.env.*.local
+.env.production.local
+.env.development.local
+.env.test.local
+
+# Build And Distribution Related File Artifacts And Directories
+.turbo/
+dist/
+build/
+out/
+.next/
+.nuxt/
+coverage/
+htmlcov/
+
+# Packages And Dependencies Related Lock Files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lock
+
+# Python & Virtual Environment Related Files And Directories
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+.mypy_cache/
+.pyre/
+.ruff_cache/
+
+# JavaScript & Node.js, TypeScript & Bun Related Files And Directories
+node_modules/
+*.tsbuildinfo
+.pnp
+.pnp.js
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+bun.lock
+.bun/
+
+# Temporary & Miscellaneous Related Files And Directories
+.tmp/
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+.AppleDouble
+.LSOverride
+.TemporaryItems
+
+# Artificial Intelligence & Finetuned Wav2Vec2 Model Related Files And Directories
+.cache/huggingface/
+models/
+*.pth
+*.pt
+*.onnx

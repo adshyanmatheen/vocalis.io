@@ -1,0 +1,55 @@
+# Environmental Variables And Secrets Related Files
+.env
+.env.*
+!.env.example
+
+# Python Bytecodes And Cache Directories
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyre/
+.coverage
+coverage.xml
+htmlcov/
+
+# Virtual Environment Directories
+.venv/
+venv/
+env/
+
+# Local Application Cache And Model Directories
+.cache/
+backend/.cache/
+huggingface/
+models/
+
+# Database Files
+*.db
+*.sqlite
+*.sqlite3
+
+# Log Directories and Files
+logs/
+*.log
+
+# Build And Distribution Artifact Directories
+build/
+dist/
+*.egg-info/
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# Operating System Related Files
+.DS_Store
+Thumbs.db
+
+# Integrated Development Environment (IDE) Related Directories And Files
+.idea/
+.vscode/
+*.swp
+*.swo

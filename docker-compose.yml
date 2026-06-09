@@ -1,0 +1,84 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vocalis-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - ENVIRONMENT=development
+      - DEBUG=true
+      - LOG_LEVEL=INFO
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DATABASE_URL=sqlite+aiosqlite:///./vocalis.db
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-your-secret-key-here-change-in-production}
+      - HUGGINGFACE_MODEL_ID=matheetharanadshyan/wav2vec2-svarah
+      - HUGGINGFACE_CACHE_DIR=.cache/huggingface
+      - USE_GROQ=${USE_GROQ:-false}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - GROQ_MODEL=llama-3.1-8b-instant
+      - DEVICE=cpu
+      - ALIGNMENT_QUANTIZATION_BACKEND=none
+      - SAMPLE_RATE=16000
+      - MIN_AUDIO_DURATION_SECONDS=0.5
+      - MAX_AUDIO_DURATION_SECONDS=30.0
+      - MAX_WEBSOCKET_BUFFER_MB=10
+      - REALTIME_INFERENCE_TIMEOUT_SECONDS=20.0
+      - MAX_CONCURRENT_REALTIME_INFERENCES=4
+      - BACKUP_ENABLED=true
+      - BACKUP_DIRECTORY=backups
+      - BACKUP_RETENTION_DAYS=30
+      - CORS_ALLOWED_ORIGINS=["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:5173", "http://127.0.0.1:5173"]
+    volumes:
+      - vocalis-db:/app/vocalis.db
+      - vocalis-cache:/app/.cache
+      - vocalis-backups:/app/backups
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/api/v1/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    networks:
+      - vocalis-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vocalis-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:3000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    networks:
+      - vocalis-network
+
+volumes:
+  vocalis-db:
+    driver: local
+  vocalis-cache:
+    driver: local
+  vocalis-backups:
+    driver: local
+
+networks:
+  vocalis-network:
+    driver: bridge

@@ -1,0 +1,118 @@
+name: The Vocalis.io GitHub Continuous Integration (CI) & Continuous Deployment (CD) Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  frontend-lint:
+    runs-on: ubuntu-latest
+    name: Linting And Formatting The Code Required For The Frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Installing Packages And Dependencies Required For The Frontend From The Bun Package Manager
+        run: cd frontend && bun install --frozen-lockfile
+
+      - name: Running Linting Checks Required For The Frontend Using The EcmaScript Linter (ESLint)
+        run: cd frontend && bun run lint
+
+      - name: Running Formatting Checks Required For The Frontend Using The Prettier Code Formatter
+        run: cd frontend && bun run format:check
+
+  backend-lint:
+    runs-on: ubuntu-latest
+    name: Linting And Formatting The Code Required For The Backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Installing uv Using The pip Python Package Manager
+        run: python -m pip install uv
+
+      - name: Installing And Syncing Dependencies Required For The Backend From The uv Python Package Manager
+        run: cd backend && uv sync --frozen
+
+      - name: Running Linting Checks Required For The Backend Using The Ruff Python Linter
+        run: cd backend && uv run ruff check .
+
+      - name: Running Formatting Checks Required For The Backend Using The Ruff Python Formatter
+        run: cd backend && uv run ruff format --check .
+
+  frontend-type-check:
+    runs-on: ubuntu-latest
+    name: Checking The Validity And Safety Of The Types Required For The Frontend Using The TypeScript Compiler (tsc)
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Installing Packages And Dependencies Required For The Frontend From The Bun Package Manager
+        run: cd frontend && bun install --frozen-lockfile
+
+      - name: Running TypeScript Type Checking Required For The Frontend Using The TypeScript Compiler (tsc)
+        run: cd frontend && bun run type-check
+
+  frontend-test:
+    runs-on: ubuntu-latest
+    name: Testing The Unit Tests Written Required To Test The Functionality Of The Frontend Using Vitest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Installing Packages And Dependencies Required For The Frontend From The Bun Package Manager
+        run: cd frontend && bun install --frozen-lockfile
+
+      - name: Running The Unit Tests Written Using Vitest To Test The Functionality Of The Frontend
+        run: cd frontend && bun run test --run
+
+  backend-test:
+    runs-on: ubuntu-latest
+    name: Testing The Unit Tests Written Required To Test The Functionality Of The Backend Using PyTest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Installing uv Using The pip Python Package Manager
+        run: python -m pip install uv
+
+      - name: Installing And Syncing Dependencies Required For The Backend From The uv Python Package Manager
+        run: cd backend && uv sync --frozen
+
+      - name: Running The Unit Tests Written Using PyTest To Test The Functionality Of The Backend
+        run: cd backend && uv run pytest tests/ -v --tb=short
+
+  ci-status:
+    name: Verifying The Status Of The Continuous Integration (CI) Pipeline
+    runs-on: ubuntu-latest
+    needs: [frontend-lint, backend-lint, frontend-type-check, frontend-test, backend-test]
+    if: always()
+    steps:
+      - name: Verifying The Status Of The Continuous Integration (CI) Pipeline
+        run: |
+          if [ "${{ needs.frontend-lint.result }}" != "success" ] || \
+             [ "${{ needs.backend-lint.result }}" != "success" ] || \
+             [ "${{ needs.frontend-type-check.result }}" != "success" ] || \
+             [ "${{ needs.frontend-test.result }}" != "success" ] || \
+             [ "${{ needs.backend-test.result }}" != "success" ]; then
+            echo "One Or More Of The Continuous Integration (CI) Tasks In The Pipeline Have Failed"
+            exit 1
+          fi
+          echo "All Of The Continuous Integration (CI) Tasks Have Passed"

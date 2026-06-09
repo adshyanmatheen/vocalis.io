@@ -1,0 +1,15 @@
+.cache
+.DS_Store
+.env
+.git
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.venv
+__pycache__
+*.db
+*.pyc
+*.pyo
+*.sqlite
+*.sqlite3
+notebooks/.ipynb_checkpoints
