@@ -12,6 +12,7 @@ vi.mock('@/lib/sound-engine', () => ({
 
 vi.mock('@/lib/api', () => ({
   getApiBaseUrl: () => 'http://localhost:8000',
+  csrfHeader: () => ({}),
 }))
 
 afterEach(cleanup)
