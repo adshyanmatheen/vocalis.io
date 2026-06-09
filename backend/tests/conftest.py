@@ -25,8 +25,8 @@ os.environ.setdefault(
 os.environ.setdefault("GROQ_API_KEY", "test-groq-api-key")
 os.environ["LITESTAR_WARN_IMPLICIT_SYNC_TO_THREAD"] = "0"
 
-from app.domain.database.init import initialize_database  # noqa: E402
-from app.main import app  # noqa: E402
+from app.domain.database.init import initialize_database
+from app.main import app
 
 
 def pytest_collection_modifyitems(

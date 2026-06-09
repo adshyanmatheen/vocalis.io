@@ -106,7 +106,7 @@ def hash_refresh_token(refresh_token: str) -> str:
 
 def generate_access_token(*, user_id: int, session_id: int) -> str:
 
-    expires_at = datetime.now(UTC) + timedelta(minutes=(ACCESS_TOKEN_DURATION_MINUTES))
+    expires_at = datetime.now(UTC) + timedelta(minutes=ACCESS_TOKEN_DURATION_MINUTES)
 
     payload = {
         "user_id": (user_id),

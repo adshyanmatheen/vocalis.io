@@ -7,7 +7,7 @@ from pathlib import Path
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(BACKEND_ROOT))
 
-from app.domain.database.backup import create_database_backup  # noqa: E402
+from app.domain.database.backup import create_database_backup
 
 
 def parse_args() -> argparse.Namespace:

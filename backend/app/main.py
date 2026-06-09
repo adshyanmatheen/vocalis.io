@@ -50,7 +50,7 @@ app = Litestar(
             assessment_websocket_handler,
         ]
     ),
-    debug=(settings.app.debug),
+    debug=settings.app.debug,
     cors_config=CORSConfig(
         allow_origins=settings.app.cors_allowed_origins,
         allow_credentials=True,

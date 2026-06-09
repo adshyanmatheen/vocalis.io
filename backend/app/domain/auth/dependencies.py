@@ -86,7 +86,7 @@ async def provide_current_user(
         raise (NotAuthorizedException("The Authentication Session Has Expired."))
 
     user = await auth_repository.get_user_by_id(
-        database_session=(database_session), user_id=user_id
+        database_session=database_session, user_id=user_id
     )
 
     if not user:

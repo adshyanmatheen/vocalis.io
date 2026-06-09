@@ -56,37 +56,37 @@ class AssessmentService:
         scoring_payload = await asyncio.to_thread(
             self.phoneme_service.analyze_pronunciation,
             target_text=(assessment_request["target_text"]),
-            word_segments=(word_segments),
-            audio_waveform=(audio_waveform),
-            sample_rate=(sample_rate),
+            word_segments=word_segments,
+            audio_waveform=audio_waveform,
+            sample_rate=sample_rate,
         )
 
         phoneme_results = scoring_payload["phoneme_results"]
 
         feedback_response = await self.feedback_service.build_feedback_response(
             target_text=(assessment_request["target_text"]),
-            scoring_payload=(scoring_payload),
-            phoneme_history=(phoneme_results),
+            scoring_payload=scoring_payload,
+            phoneme_history=phoneme_results,
         )
 
-        weak_phonemes = self.extract_weak_phonemes(phoneme_results=(phoneme_results))
+        weak_phonemes = self.extract_weak_phonemes(phoneme_results=phoneme_results)
 
         persistence_payload = self.build_persistence_payload(
-            assessment_request=(assessment_request),
-            scoring_payload=(scoring_payload),
-            feedback_response=(feedback_response),
-            weak_phonemes=(weak_phonemes),
+            assessment_request=assessment_request,
+            scoring_payload=scoring_payload,
+            feedback_response=feedback_response,
+            weak_phonemes=weak_phonemes,
         )
 
         await asyncio.gather(
             self.persist_assessment(
-                database_session=(database_session),
-                persistence_payload=(persistence_payload),
+                database_session=database_session,
+                persistence_payload=persistence_payload,
             ),
             self.update_phoneme_memories(
-                database_session=(database_session),
+                database_session=database_session,
                 user_id=(assessment_request["user_id"]),
-                phoneme_results=(phoneme_results),
+                phoneme_results=phoneme_results,
             ),
         )
 
@@ -143,8 +143,8 @@ class AssessmentService:
     ) -> None:
         try:
             await self.assessment_repository.create_attempt(
-                database_session=(database_session),
-                payload=(persistence_payload),
+                database_session=database_session,
+                payload=persistence_payload,
             )
 
         except Exception as error:
@@ -164,9 +164,9 @@ class AssessmentService:
 
         existing_memories = (
             await self.assessment_repository.get_phoneme_memories_by_user_and_phonemes(
-                database_session=(database_session),
-                user_id=(user_id),
-                phonemes=(phoneme_names),
+                database_session=database_session,
+                user_id=user_id,
+                phonemes=phoneme_names,
             )
         )
 
@@ -178,9 +178,9 @@ class AssessmentService:
             if memory is None:
                 tasks.append(
                     self.assessment_repository.create_phoneme_memory(
-                        database_session=(database_session),
-                        user_id=(user_id),
-                        phoneme=(phoneme),
+                        database_session=database_session,
+                        user_id=user_id,
+                        phoneme=phoneme,
                         phoneme_score=(result["phoneme_score"]),
                         severity_score=(result["severity_score"]),
                         error_type=(result["error_type"]),
@@ -189,8 +189,8 @@ class AssessmentService:
             else:
                 tasks.append(
                     self.assessment_repository.update_phoneme_memory(
-                        database_session=(database_session),
-                        memory=(memory),
+                        database_session=database_session,
+                        memory=memory,
                         phoneme_score=(result["phoneme_score"]),
                         severity_score=(result["severity_score"]),
                         error_type=(result["error_type"]),

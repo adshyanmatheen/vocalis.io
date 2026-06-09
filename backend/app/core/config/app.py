@@ -48,7 +48,7 @@ class AppSettings(BaseSettings):
 
     jwt_secret_key: str = Field()
 
-    huggingface_model_id: str = Field(default=("matheetharanadshyan/wav2vec2-svarah"))
+    huggingface_model_id: str = Field(default="matheetharanadshyan/wav2vec2-svarah")
 
     huggingface_cache_dir: str = Field(default=".cache/huggingface")
 

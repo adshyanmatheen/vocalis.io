@@ -32,6 +32,8 @@ vocalis.db
 vocalis.db-shm
 vocalis.db-wal
 *.db
+*.db-wal
+*.db-shm
 *.sqlite
 *.sqlite3
 

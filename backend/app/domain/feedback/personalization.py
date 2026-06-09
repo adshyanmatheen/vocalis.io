@@ -138,7 +138,7 @@ def analyze_phoneme_trend(*, phoneme: str, scores: list[float]) -> FocusPhonemeT
         "consistency_direction": (consistency_direction),
         "consistency_summary": (
             build_consistency_summary(
-                phoneme=phoneme, consistency_direction=(consistency_direction)
+                phoneme=phoneme, consistency_direction=consistency_direction
             )
         ),
         "trend_confidence": round(

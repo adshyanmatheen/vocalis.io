@@ -17,7 +17,7 @@ from app.schemas.responses.health import (
 def health_check() -> HealthResponse:
     return HealthResponse(
         status="online",
-        service=(settings.app.app_name),
+        service=settings.app.app_name,
     )
 
 

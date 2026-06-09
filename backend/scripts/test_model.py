@@ -9,9 +9,9 @@ import numpy as np
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(BACKEND_ROOT))
 
-from app.domain.alignment.engine import load_alignment_model_bundle  # noqa: E402
-from app.domain.phoneme.engine import load_phoneme_model_bundle  # noqa: E402
-from app.domain.realtime.service import RealtimeAssessmentService  # noqa: E402
+from app.domain.alignment.engine import load_alignment_model_bundle
+from app.domain.phoneme.engine import load_phoneme_model_bundle
+from app.domain.realtime.service import RealtimeAssessmentService
 
 
 def build_synthetic_waveform() -> np.ndarray:

@@ -26,7 +26,7 @@ class SecurityHeadersMiddleware:
                     (b"referrer-policy", b"strict-origin-when-cross-origin"),
                     (
                         b"permissions-policy",
-                        b"geolocation=(), microphone=(), camera=()",
+                        b"geolocation=(), microphone=self, camera=()",
                     ),
                 ]
                 for header_name, header_value in security_headers:

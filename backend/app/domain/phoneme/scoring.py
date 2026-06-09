@@ -151,7 +151,7 @@ def score_phoneme_result(result: PhonemeMatch) -> ScoredPhonemeResult:
     severity_score = compute_severity_score(
         error_type=error_type,
         confidence_score=(get_value(result, "confidence_score")),
-        phoneme_duration=(phoneme_duration),
+        phoneme_duration=phoneme_duration,
     )
 
     severity = severity_from_score(severity_score)

@@ -53,11 +53,11 @@ async def register_user(
 ) -> Response[AuthResponse]:
     try:
         authentication_result = await auth_service.register_user(
-            database_session=(database_session),
+            database_session=database_session,
             payload=(
                 RegisterPayload(
-                    name=(data.name),
-                    password=(data.password),
+                    name=data.name,
+                    password=data.password,
                 )
             ),
         )
@@ -70,10 +70,10 @@ async def register_user(
             token_type="Bearer",
             user=(
                 AuthUserResponse(
-                    id=(authentication_result.user.id),
-                    name=(authentication_result.user.name),
-                    username=(authentication_result.user.username),
-                    profile_picture_url=(authentication_result.user.avatar_url),
+                    id=authentication_result.user.id,
+                    name=authentication_result.user.name,
+                    username=authentication_result.user.username,
+                    profile_picture_url=authentication_result.user.avatar_url,
                 )
             ),
         )
@@ -95,11 +95,11 @@ async def login_user(
 
     try:
         authentication_result = await auth_service.login_user(
-            database_session=(database_session),
+            database_session=database_session,
             payload=(
                 LoginPayload(
-                    username=(data.username),
-                    password=(data.password),
+                    username=data.username,
+                    password=data.password,
                 )
             ),
         )
@@ -113,7 +113,7 @@ async def login_user(
     if isinstance(authentication_result, MFALoginChallenge):
         return AuthResponse(
             mfa_required=True,
-            temporary_token=(authentication_result.temporary_token),
+            temporary_token=authentication_result.temporary_token,
         )
 
     response = Response(
@@ -121,10 +121,10 @@ async def login_user(
             token_type="Bearer",
             user=(
                 AuthUserResponse(
-                    id=(authentication_result.user.id),
-                    name=(authentication_result.user.name),
-                    username=(authentication_result.user.username),
-                    profile_picture_url=(authentication_result.user.avatar_url),
+                    id=authentication_result.user.id,
+                    name=authentication_result.user.name,
+                    username=authentication_result.user.username,
+                    profile_picture_url=authentication_result.user.avatar_url,
                 )
             ),
         )
@@ -143,10 +143,10 @@ async def login_user(
 def get_current_user(authenticated_user: User) -> AuthUserResponse:
 
     return AuthUserResponse(
-        id=(authenticated_user.id),
-        name=(authenticated_user.name),
-        username=(authenticated_user.username),
-        profile_picture_url=(authenticated_user.avatar_url),
+        id=authenticated_user.id,
+        name=authenticated_user.name,
+        username=authenticated_user.username,
+        profile_picture_url=authenticated_user.avatar_url,
     )
 
 

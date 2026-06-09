@@ -48,16 +48,16 @@ async def setup_mfa(
 ) -> MFASetupResponse:
     try:
         setup_result = await mfa.setup_mfa(
-            database_session=(database_session),
-            user=(authenticated_user),
+            database_session=database_session,
+            user=authenticated_user,
         )
 
     except AuthenticationError as error:
         raise (ClientException(str(error))) from error
 
     return MFASetupResponse(
-        provisioning_uri=(setup_result.provisioning_uri),
-        mfa_enabled=(setup_result.mfa_enabled),
+        provisioning_uri=setup_result.provisioning_uri,
+        mfa_enabled=setup_result.mfa_enabled,
     )
 
 
@@ -69,9 +69,9 @@ async def verify_mfa(
 ) -> MFAVerifyResponse:
     try:
         await mfa.verify_mfa_setup(
-            database_session=(database_session),
-            user=(authenticated_user),
-            code=(data.code),
+            database_session=database_session,
+            user=authenticated_user,
+            code=data.code,
         )
 
     except InvalidMFACodeError as error:
@@ -93,9 +93,9 @@ async def login_with_mfa(
 ) -> Response[MFALoginResponse]:
     try:
         authentication_result = await mfa.complete_mfa_login(
-            database_session=(database_session),
-            temporary_token=(data.temporary_token),
-            code=(data.code),
+            database_session=database_session,
+            temporary_token=data.temporary_token,
+            code=data.code,
         )
 
     except (InvalidMFAChallengeError, InvalidMFACodeError) as error:
@@ -108,10 +108,10 @@ async def login_with_mfa(
         MFALoginResponse(
             user=(
                 AuthUserResponse(
-                    id=(authentication_result.user.id),
-                    name=(authentication_result.user.name),
-                    username=(authentication_result.user.username),
-                    profile_picture_url=(authentication_result.user.avatar_url),
+                    id=authentication_result.user.id,
+                    name=authentication_result.user.name,
+                    username=authentication_result.user.username,
+                    profile_picture_url=authentication_result.user.avatar_url,
                 )
             ),
             mfa_enabled=True,
@@ -135,9 +135,9 @@ async def disable_mfa(
 ) -> MFAVerifyResponse:
     try:
         await mfa.disable_mfa(
-            database_session=(database_session),
-            user=(authenticated_user),
-            code=(data.code),
+            database_session=database_session,
+            user=authenticated_user,
+            code=data.code,
         )
 
     except InvalidMFACodeError as error:
