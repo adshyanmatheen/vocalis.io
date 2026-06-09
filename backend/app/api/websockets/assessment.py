@@ -426,11 +426,11 @@ async def handle_end_assessment(
             scoring_windows=session.scoring_windows,
         )
         feedback = realtime_assessment_service.build_completion_feedback(
-            scoring_payload=scoring_payload,  # pyrefly: ignore
+            scoring_payload=scoring_payload,
             duration_seconds=duration_seconds,
         )
         weak_phonemes = realtime_assessment_service.extract_weak_phonemes(
-            scoring_payload=scoring_payload,  # pyrefly: ignore
+            scoring_payload=scoring_payload,
         )
 
         await asyncio.gather(
@@ -438,7 +438,7 @@ async def handle_end_assessment(
                 database_session=database_session,
                 user_id=user_id,
                 target_text=session.target_text,
-                scoring_payload=scoring_payload,  # pyrefly: ignore
+                scoring_payload=scoring_payload,
                 duration_seconds=duration_seconds,
                 message_metadata=session.message_metadata,
             ),

@@ -57,7 +57,7 @@ class RealtimeAssessmentService:
             sample_rate=sample_rate,
         )
 
-    def extract_weak_phonemes(self, *, scoring_payload: ScoringPayload) -> list[str]:
+    def extract_weak_phonemes(self, *, scoring_payload: dict[str, Any]) -> list[str]:
         return sorted(
             {
                 result["expected_phoneme"]
@@ -67,7 +67,7 @@ class RealtimeAssessmentService:
         )
 
     def build_partial_feedback(
-        self, *, scoring_payload: ScoringPayload
+        self, *, scoring_payload: dict[str, Any]
     ) -> dict[str, Any]:
         return {
             "overall_score": scoring_payload["overall_score"],
@@ -107,12 +107,13 @@ class RealtimeAssessmentService:
             word_scores,
             key=lambda item: float(item.get("weighted_score", item.get("score", 0.0))),
         )
+        ndigits = 4
         weakest_words = [
             {
                 "word": str(item.get("word", "")),
                 "score": round(
                     float(item.get("weighted_score", item.get("score", 0.0))),
-                    4,  # pyrefly: ignore
+                    ndigits,
                 ),
                 "phoneme_count": int(item.get("phoneme_count", 0)),
             }
@@ -123,7 +124,7 @@ class RealtimeAssessmentService:
                 "word": str(item.get("word", "")),
                 "score": round(
                     float(item.get("weighted_score", item.get("score", 0.0))),
-                    4,  # pyrefly: ignore
+                    ndigits,
                 ),
                 "phoneme_count": int(item.get("phoneme_count", 0)),
             }
@@ -283,7 +284,7 @@ class RealtimeAssessmentService:
         )
 
     def build_completion_feedback(
-        self, *, scoring_payload: ScoringPayload, duration_seconds: float
+        self, *, scoring_payload: dict[str, Any], duration_seconds: float
     ) -> dict[str, Any]:
         weak_phonemes = self.extract_weak_phonemes(scoring_payload=scoring_payload)
         phoneme_results = msgspec.to_builtins(scoring_payload["phoneme_results"])

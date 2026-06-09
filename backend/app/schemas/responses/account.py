@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from msgspec import Struct
 
+from app.domain.feedback.models import TrendDirection
+
 
 class AccountUserResponse(Struct, kw_only=True):
     id: int
@@ -57,7 +59,7 @@ class AccountFocusPhonemeResponse(Struct, kw_only=True):
     average_severity_score: float
     recent_weighted_score: float
     common_error_types: list[str]
-    trend_direction: str
+    trend_direction: TrendDirection
     consistency_score: float
     trend_confidence: float
     last_seen_at: str

@@ -41,9 +41,9 @@ class PhonemeService:
 
         inputs = model_bundle.processor(  # pyrefly: ignore
             waveform,
-            sampling_rate=sample_rate,  # pyrefly: ignore
-            return_tensors="pt",  # pyrefly: ignore
-            padding=True,  # pyrefly: ignore
+            sampling_rate=sample_rate,
+            return_tensors="pt",
+            padding=True,
         )
         input_values = inputs.input_values.to(model_bundle.device)
 

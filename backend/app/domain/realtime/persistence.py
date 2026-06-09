@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 import msgspec
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -8,9 +10,6 @@ from app.api.websockets.models import (
 )
 from app.domain.assessment.repository import (
     AssessmentRepository,
-)
-from app.domain.phoneme.models import (
-    ScoringPayload,
 )
 from app.domain.realtime.service import (
     realtime_assessment_service,
@@ -24,7 +23,7 @@ async def store_realtime_assessment(
     database_session: AsyncSession,
     user_id: int,
     target_text: str,
-    scoring_payload: ScoringPayload,
+    scoring_payload: dict[str, Any],
     duration_seconds: float,
     message_metadata: list[IncomingMessageMetadata],
 ) -> None:
@@ -46,7 +45,7 @@ async def store_realtime_assessment(
             "performance_band": scoring_payload["performance_band"],
             "phoneme_results": msgspec.to_builtins(scoring_payload["phoneme_results"]),
             "word_scores": msgspec.to_builtins(scoring_payload["word_scores"]),
-            "feedback_payload": feedback_payload,  # pyrefly: ignore
+            "feedback_payload": feedback_payload,
             "weak_phonemes": realtime_assessment_service.extract_weak_phonemes(
                 scoring_payload=scoring_payload,
             ),

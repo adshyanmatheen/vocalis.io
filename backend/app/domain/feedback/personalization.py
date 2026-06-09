@@ -162,6 +162,8 @@ def build_focus_phoneme_memory(
 
     common_error_types = sorted({result["error_type"] for result in phoneme_results})
 
+    last_result = phoneme_results[-1]
+
     return {
         "phoneme": phoneme,
         "total_occurrences": len(phoneme_results),
@@ -170,7 +172,7 @@ def build_focus_phoneme_memory(
         "average_severity_score": round(mean(severity_scores), 4),
         "recent_weighted_score": round(compute_weighted_average(scores), 4),
         "common_error_types": (common_error_types),
-        "last_seen_at": phoneme_results[-1]["end_time"],  # pyrefly: ignore
+        "last_seen_at": last_result["end_time"],
         "trend": trend,
     }
 
@@ -234,12 +236,15 @@ def analyze_personalization(
             else 0.0
         )
 
+        last_attempt_at: str | None = None
+        if phoneme_history:
+            last_history = phoneme_history[-1]
+            last_attempt_at = last_history["end_time"]
+
         return {
             "attempt_count": len(phoneme_history),
             "average_score": round(average_score, 4),
-            "last_attempt_at": (
-                phoneme_history[-1]["end_time"] if phoneme_history else None  # pyrefly: ignore
-            ),
+            "last_attempt_at": last_attempt_at,
             "recent_attempts": [],
             "focus_phonemes": (focus_memories),
             "current_focus": (personalized_context["current_focus"]),

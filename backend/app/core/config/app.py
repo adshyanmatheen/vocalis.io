@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -29,9 +29,9 @@ class AppSettings(BaseSettings):
 
     port: int = Field(default=8000, ge=1, le=65535)
 
-    log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = Field(  # pyrefly: ignore
-        default="INFO"
-    )
+    log_level: Annotated[
+        Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], Field(default="INFO")
+    ]
 
     cors_allowed_origins: list[str] = Field(
         default=[

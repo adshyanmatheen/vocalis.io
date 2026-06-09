@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TypedDict
+from typing import Any, TypedDict
 
 from app.domain.feedback.models import (
     FeedbackPayload,
@@ -36,7 +36,7 @@ class AssessmentPersistencePayload(TypedDict):
     performance_band: str
     phoneme_results: list[ScoredPhonemeResult]
     word_scores: list[WordScore]
-    feedback_payload: FeedbackPayload
+    feedback_payload: dict[str, Any]
     weak_phonemes: list[str]
 
 

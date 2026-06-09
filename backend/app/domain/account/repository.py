@@ -214,7 +214,7 @@ class AccountRepository:
             ),
             improvement_note=build_trend_summary(
                 phoneme=primary_focus.phoneme,
-                trend_direction=primary_focus.trend_direction,  # type: ignore[arg-type]
+                trend_direction=primary_focus.trend_direction,
             ),
             consistency_note=build_consistency_summary(
                 phoneme=primary_focus.phoneme,

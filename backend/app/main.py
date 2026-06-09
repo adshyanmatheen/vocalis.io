@@ -1,3 +1,5 @@
+import asyncio
+
 from litestar import (
     Litestar,
 )
@@ -43,6 +45,14 @@ from app.domain.models import (
 
 configure_logging()
 
+
+async def _startup() -> None:
+    await asyncio.gather(
+        initialize_database(),
+        start_local_model_preload(),
+    )
+
+
 app = Litestar(
     route_handlers=(
         [
@@ -67,8 +77,7 @@ app = Litestar(
         DefineMiddleware(create_request_observability_middleware),
     ],
     on_startup=[
-        initialize_database,
-        start_local_model_preload,
+        _startup,
     ],
     on_shutdown=[
         create_database_backup_async,
