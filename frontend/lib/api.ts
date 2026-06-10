@@ -90,10 +90,26 @@ export const fetchCurrentUser = async (signal?: AbortSignal): Promise<AuthUser |
     ...withCredentials,
     signal,
   })
-  if (!response.ok) {
+
+  if (response.status === 401) {
     return null
   }
-  return response.json() as Promise<AuthUser>
+
+  if (!response.ok) {
+    throw new Error('Unable to verify your session. Please try again.')
+  }
+
+  return parseUserResponse(await response.json())
+}
+
+export function parseUserResponse(data: unknown): AuthUser {
+  if (typeof data !== 'object' || data === null) {
+    throw new Error('Invalid server response.')
+  }
+  if (!('id' in data) || !('name' in data) || !('username' in data)) {
+    throw new Error('Unexpected server response format.')
+  }
+  return data as AuthUser
 }
 
 export const refreshUserSession = async (signal?: AbortSignal): Promise<boolean> => {
@@ -128,6 +144,10 @@ export const fetchAccountSummary = async (signal?: AbortSignal): Promise<Account
 
   if (!response.ok) {
     throw new Error(payload?.detail || payload?.message || 'Unable to load account summary.')
+  }
+
+  if (typeof payload !== 'object' || payload === null) {
+    throw new Error('Invalid account summary response.')
   }
 
   return payload as AccountSummary

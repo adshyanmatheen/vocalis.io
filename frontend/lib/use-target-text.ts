@@ -43,6 +43,13 @@ export const useTargetText = () => {
       }
 
       if (requestId === requestIdRef.current) {
+        if (
+          typeof payload !== 'object' ||
+          payload === null ||
+          !('text' in (payload as Record<string, unknown>))
+        ) {
+          throw new Error('Unexpected target text response format.')
+        }
         setTargetText((payload as TargetText).text)
       }
     } catch (error) {

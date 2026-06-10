@@ -18,19 +18,23 @@ export default function HomePage() {
   const handleGetStarted = async () => {
     handlePlay()
 
-    if (user) {
-      router.push('/home')
-      return
-    }
+    try {
+      if (user) {
+        router.push('/home')
+        return
+      }
 
-    if (loading) {
+      if (loading) {
+        const nextUser = await refreshAuth()
+        router.push(nextUser ? '/home' : '/register')
+        return
+      }
+
       const nextUser = await refreshAuth()
       router.push(nextUser ? '/home' : '/register')
-      return
+    } catch {
+      router.push('/register')
     }
-
-    const nextUser = await refreshAuth()
-    router.push(nextUser ? '/home' : '/register')
   }
 
   return (

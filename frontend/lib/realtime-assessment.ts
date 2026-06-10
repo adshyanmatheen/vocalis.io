@@ -168,6 +168,10 @@ export const getModelHealth = async (signal?: AbortSignal) => {
     throw new Error(payload?.detail || payload?.message || 'Unable to check model readiness.')
   }
 
+  if (typeof payload !== 'object' || payload === null) {
+    throw new Error('Invalid model health response.')
+  }
+
   return payload as ModelHealthResponse
 }
 

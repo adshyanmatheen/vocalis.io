@@ -218,7 +218,7 @@ export default function MFAVerification() {
               </InputOTPGroup>
             </InputOTP>
             <p className="mt-7 max-w-sm text-xs font-semibold leading-5 text-gray-400 sm:text-sm">
-              Enter The Six Digit Code From Your Preffered Authentication Application
+              Enter The Six Digit Code From Your Preferred Authentication Application
             </p>
           </div>
 

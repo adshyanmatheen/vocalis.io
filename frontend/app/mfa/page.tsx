@@ -56,6 +56,13 @@ export default function MultiFactorAuthentication() {
           throw new Error(payload?.detail || payload?.message || 'MFA setup failed.')
         }
 
+        if (
+          typeof payload !== 'object' ||
+          payload === null ||
+          !('provisioning_uri' in (payload as Record<string, unknown>))
+        ) {
+          throw new Error('Unexpected MFA setup response format.')
+        }
         setSetupUri((payload as MFASetupResponse).provisioning_uri)
       } catch (err: unknown) {
         if (err instanceof DOMException && err.name === 'AbortError') {
@@ -124,7 +131,7 @@ export default function MultiFactorAuthentication() {
               )}
             </div>
             <p className="mt-5 max-w-xs text-xs font-semibold leading-5 text-gray-400 sm:text-sm">
-              Scan This QR Code Using Your Preffered Authentication Application
+              Scan This QR Code Using Your Preferred Authentication Application
             </p>
 
             {error ? (

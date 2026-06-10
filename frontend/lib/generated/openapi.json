@@ -1100,11 +1100,7 @@
             "deprecated": null,
             "description": null,
             "discriminator": null,
-            "enum": [
-              "improving",
-              "stable",
-              "declining"
-            ],
+            "enum": ["improving", "stable", "declining"],
             "example": null,
             "examples": null,
             "exclusive_maximum": null,
@@ -1977,9 +1973,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "focus_phonemes"
-        ],
+        "required": ["focus_phonemes"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -2257,11 +2251,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "performance_band_counts",
-          "recent_weak_phonemes",
-          "score_series"
-        ],
+        "required": ["performance_band_counts", "recent_weak_phonemes", "score_series"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -2972,11 +2962,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "attempt_id",
-          "created_at",
-          "score"
-        ],
+        "required": ["attempt_id", "created_at", "score"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -3051,12 +3037,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "activity",
-          "personalization",
-          "progress",
-          "user"
-        ],
+        "required": ["activity", "personalization", "progress", "user"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -3660,10 +3641,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "count",
-          "phoneme"
-        ],
+        "required": ["count", "phoneme"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -3826,10 +3804,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "audio_bytes",
-          "target_text"
-        ],
+        "required": ["audio_bytes", "target_text"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -5208,14 +5183,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "attempts",
-          "average_score",
-          "has_more",
-          "limit",
-          "offset",
-          "total_attempts"
-        ],
+        "required": ["attempts", "average_score", "has_more", "limit", "offset", "total_attempts"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -6252,12 +6220,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "avatar_url",
-          "id",
-          "name",
-          "username"
-        ],
+        "required": ["avatar_url", "id", "name", "username"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -6582,13 +6545,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "character",
-          "confidence",
-          "end_time",
-          "index",
-          "start_time"
-        ],
+        "required": ["character", "confidence", "end_time", "index", "start_time"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -6751,10 +6708,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "service",
-          "status"
-        ],
+        "required": ["service", "status"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -6917,10 +6871,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "password",
-          "username"
-        ],
+        "required": ["password", "username"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -7029,9 +6980,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "success"
-        ],
+        "required": ["success"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -7140,9 +7089,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "code"
-        ],
+        "required": ["code"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -7305,10 +7252,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "code",
-          "temporary_token"
-        ],
+        "required": ["code", "temporary_token"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -7802,10 +7746,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "mfa_enabled",
-          "user"
-        ],
+        "required": ["mfa_enabled", "user"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -7968,10 +7909,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "mfa_enabled",
-          "provisioning_uri"
-        ],
+        "required": ["mfa_enabled", "provisioning_uri"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -8080,9 +8018,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "code"
-        ],
+        "required": ["code"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -8245,10 +8181,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "mfa_enabled",
-          "success"
-        ],
+        "required": ["mfa_enabled", "success"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -9280,11 +9213,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "model_id",
-          "name",
-          "status"
-        ],
+        "required": ["model_id", "name", "status"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -9947,10 +9876,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "name",
-          "password"
-        ],
+        "required": ["name", "password"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -10167,11 +10093,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "name",
-          "status",
-          "version"
-        ],
+        "required": ["name", "status", "version"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -10603,14 +10525,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "articulation_focus",
-          "category",
-          "difficulty",
-          "id",
-          "text",
-          "word_count"
-        ],
+        "required": ["articulation_focus", "category", "difficulty", "id", "text", "word_count"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -10881,12 +10796,7 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": [
-          "confidence",
-          "end_time",
-          "start_time",
-          "text"
-        ],
+        "required": ["confidence", "end_time", "start_time", "text"],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -10948,9 +10858,7 @@
         "security": null,
         "servers": null,
         "summary": "Root Health Check",
-        "tags": [
-          "Root"
-        ]
+        "tags": ["Root"]
       },
       "head": null,
       "options": null,
@@ -10996,9 +10904,7 @@
         "security": null,
         "servers": null,
         "summary": "Get Account Summary",
-        "tags": [
-          "Account"
-        ]
+        "tags": ["Account"]
       },
       "head": null,
       "options": null,
@@ -11265,11 +11171,7 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": [
-                        "null",
-                        "object",
-                        "array"
-                      ],
+                      "type": ["null", "object", "array"],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -11333,10 +11235,7 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": [
-                    "detail",
-                    "status_code"
-                  ],
+                  "required": ["detail", "status_code"],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -11359,9 +11258,7 @@
         "security": null,
         "servers": null,
         "summary": "Align Audio To Target Text",
-        "tags": [
-          "Alignment"
-        ]
+        "tags": ["Alignment"]
       },
       "put": null,
       "ref": null,
@@ -11740,11 +11637,7 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": [
-                        "null",
-                        "object",
-                        "array"
-                      ],
+                      "type": ["null", "object", "array"],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -11808,10 +11701,7 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": [
-                    "detail",
-                    "status_code"
-                  ],
+                  "required": ["detail", "status_code"],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -11834,9 +11724,7 @@
         "security": null,
         "servers": null,
         "summary": "Get Assessment History",
-        "tags": [
-          "Assessment"
-        ]
+        "tags": ["Assessment"]
       },
       "head": null,
       "options": null,
@@ -12212,11 +12100,7 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": [
-                        "null",
-                        "object",
-                        "array"
-                      ],
+                      "type": ["null", "object", "array"],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -12280,10 +12164,7 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": [
-                    "detail",
-                    "status_code"
-                  ],
+                  "required": ["detail", "status_code"],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -12306,9 +12187,7 @@
         "security": null,
         "servers": null,
         "summary": "Login With Credentials",
-        "tags": [
-          "Authentication"
-        ]
+        "tags": ["Authentication"]
       },
       "put": null,
       "ref": null,
@@ -12354,9 +12233,7 @@
         "security": null,
         "servers": null,
         "summary": "Logout And Clear Session",
-        "tags": [
-          "Authentication"
-        ]
+        "tags": ["Authentication"]
       },
       "put": null,
       "ref": null,
@@ -12397,9 +12274,7 @@
         "security": null,
         "servers": null,
         "summary": "Get Authenticated User",
-        "tags": [
-          "Authentication"
-        ]
+        "tags": ["Authentication"]
       },
       "head": null,
       "options": null,
@@ -12666,11 +12541,7 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": [
-                        "null",
-                        "object",
-                        "array"
-                      ],
+                      "type": ["null", "object", "array"],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -12734,10 +12605,7 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": [
-                    "detail",
-                    "status_code"
-                  ],
+                  "required": ["detail", "status_code"],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -12760,9 +12628,7 @@
         "security": null,
         "servers": null,
         "summary": "Disable MFA For User",
-        "tags": [
-          "Multi-Factor Authentication"
-        ]
+        "tags": ["Multi-Factor Authentication"]
       },
       "put": null,
       "ref": null,
@@ -13024,11 +12890,7 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": [
-                        "null",
-                        "object",
-                        "array"
-                      ],
+                      "type": ["null", "object", "array"],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -13092,10 +12954,7 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": [
-                    "detail",
-                    "status_code"
-                  ],
+                  "required": ["detail", "status_code"],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -13118,9 +12977,7 @@
         "security": null,
         "servers": null,
         "summary": "Complete Login With MFA",
-        "tags": [
-          "Multi-Factor Authentication"
-        ]
+        "tags": ["Multi-Factor Authentication"]
       },
       "put": null,
       "ref": null,
@@ -13166,9 +13023,7 @@
         "security": null,
         "servers": null,
         "summary": "Setup MFA For User",
-        "tags": [
-          "Multi-Factor Authentication"
-        ]
+        "tags": ["Multi-Factor Authentication"]
       },
       "put": null,
       "ref": null,
@@ -13430,11 +13285,7 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": [
-                        "null",
-                        "object",
-                        "array"
-                      ],
+                      "type": ["null", "object", "array"],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -13498,10 +13349,7 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": [
-                    "detail",
-                    "status_code"
-                  ],
+                  "required": ["detail", "status_code"],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -13524,9 +13372,7 @@
         "security": null,
         "servers": null,
         "summary": "Verify MFA Setup",
-        "tags": [
-          "Multi-Factor Authentication"
-        ]
+        "tags": ["Multi-Factor Authentication"]
       },
       "put": null,
       "ref": null,
@@ -13572,9 +13418,7 @@
         "security": null,
         "servers": null,
         "summary": "Refresh Access Token",
-        "tags": [
-          "Authentication"
-        ]
+        "tags": ["Authentication"]
       },
       "put": null,
       "ref": null,
@@ -13836,11 +13680,7 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": [
-                        "null",
-                        "object",
-                        "array"
-                      ],
+                      "type": ["null", "object", "array"],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -13904,10 +13744,7 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": [
-                    "detail",
-                    "status_code"
-                  ],
+                  "required": ["detail", "status_code"],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -13930,9 +13767,7 @@
         "security": null,
         "servers": null,
         "summary": "Register A New User",
-        "tags": [
-          "Authentication"
-        ]
+        "tags": ["Authentication"]
       },
       "put": null,
       "ref": null,
@@ -13973,9 +13808,7 @@
         "security": null,
         "servers": null,
         "summary": "Service Health Check",
-        "tags": [
-          "Health"
-        ]
+        "tags": ["Health"]
       },
       "head": null,
       "options": null,
@@ -14021,9 +13854,7 @@
         "security": null,
         "servers": null,
         "summary": "Model Readiness Check",
-        "tags": [
-          "Health"
-        ]
+        "tags": ["Health"]
       },
       "head": null,
       "options": null,
@@ -14448,11 +14279,7 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": [
-                        "null",
-                        "object",
-                        "array"
-                      ],
+                      "type": ["null", "object", "array"],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -14516,10 +14343,7 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": [
-                    "detail",
-                    "status_code"
-                  ],
+                  "required": ["detail", "status_code"],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -14542,9 +14366,7 @@
         "security": null,
         "servers": null,
         "summary": "Get Current Speech Target",
-        "tags": [
-          "Target"
-        ]
+        "tags": ["Target"]
       },
       "head": null,
       "options": null,

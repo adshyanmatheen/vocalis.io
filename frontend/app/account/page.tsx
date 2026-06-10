@@ -227,8 +227,10 @@ export default function Account() {
 
     try {
       await logoutUser()
-      router.replace('/sign-in')
+    } catch {
+      // Logout failed, but still redirect
     } finally {
+      router.replace('/sign-in')
       setLogoutLoading(false)
     }
   }, [router])

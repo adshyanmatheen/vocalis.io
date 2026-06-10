@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { PageBackground, DotMetersRow } from '@/lib/page-layouts'
 import { playSound } from '@/lib/sound-engine'
 import { switch001Sound } from '@/lib/switch-001'
-import { getApiBaseUrl } from '@/lib/api'
+import { csrfHeader, getApiBaseUrl } from '@/lib/api'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -65,7 +65,7 @@ export default function Register() {
     try {
       const response = await fetch(`${getApiBaseUrl()}/auth/register`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...csrfHeader() },
         credentials: 'include',
         body: JSON.stringify({
           name: name.trim(),
@@ -108,7 +108,7 @@ export default function Register() {
           <form onSubmit={handleSubmit}>
             <FieldGroup className="w-full px-5 gap-4">
               <FieldLabel className="text-gray-400 capitalize text-sm" htmlFor="input-field-name">
-                Enter Your Preffered Full Name
+                Enter Your Preferred Full Name
               </FieldLabel>
               <Input
                 id="input-field-name"
@@ -123,7 +123,7 @@ export default function Register() {
                 className="text-gray-400 capitalize text-sm mt-5"
                 htmlFor="input-field-password"
               >
-                Enter Your Preffered Password
+                Enter Your Preferred Password
               </FieldLabel>
               <Input
                 id="input-field-password"

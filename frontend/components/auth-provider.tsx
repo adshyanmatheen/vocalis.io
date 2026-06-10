@@ -56,6 +56,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (!nextUser && !isPublicPath(pathname)) {
           router.replace('/sign-in')
         }
+      } catch {
+        if (!cancelled) {
+          setUser(null)
+        }
       } finally {
         if (!cancelled) {
           setLoading(false)
