@@ -79,7 +79,7 @@ class AppSettings(BaseSettings):
 
     max_websocket_buffer_mb: int = Field(default=10, ge=1, le=100)
 
-    realtime_inference_timeout_seconds: float = Field(default=20.0, gt=0)
+    realtime_inference_timeout_seconds: float = Field(default=60.0, gt=0)
 
     max_concurrent_realtime_inferences: int = Field(default=4, ge=1, le=32)
 

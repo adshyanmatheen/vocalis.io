@@ -16,6 +16,7 @@ from app.schemas.responses.health import (
     summary="Service Health Check",
     description="This Route Returns The Current Operational Status Of The Vocalis Service, Including The Application Name And A Health Indicator To Confirm The Backend Is Responsive.",
     tags=["Health"],
+    sync_to_thread=False,
 )
 def health_check() -> HealthResponse:
     return HealthResponse(
@@ -30,6 +31,7 @@ def health_check() -> HealthResponse:
     summary="Model Readiness Check",
     description="This Route Queries All Registered Machine Learning Models And Returns A Readiness Snapshot Indicating Whether Each Model Is Loaded, Cached, And Ready For Inference Tasks.",
     tags=["Health"],
+    sync_to_thread=False,
 )
 def model_health_check() -> ModelHealthResponse:
     return ModelHealthResponse(**get_model_readiness_snapshot())

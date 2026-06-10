@@ -27,7 +27,7 @@ async def test_model_health_check(
             "device": "cpu",
             "started_at": "2026-06-02T00:00:00+00:00",
             "preload_task_status": "finished",
-            "realtime_inference_timeout_seconds": 20.0,
+            "realtime_inference_timeout_seconds": 60.0,
             "models": [
                 {
                     "name": "alignment",
