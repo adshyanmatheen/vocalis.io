@@ -10,7 +10,13 @@ from app.schemas.responses.health import (
 )
 
 
-@get(path="/health")
+@get(
+    path="/health",
+    operation_id="healthCheck",
+    summary="Service Health Check",
+    description="This Route Returns The Current Operational Status Of The Vocalis Service, Including The Application Name And A Health Indicator To Confirm The Backend Is Responsive.",
+    tags=["Health"],
+)
 def health_check() -> HealthResponse:
     return HealthResponse(
         status="online",
@@ -18,6 +24,12 @@ def health_check() -> HealthResponse:
     )
 
 
-@get(path="/health/models")
+@get(
+    path="/health/models",
+    operation_id="modelHealthCheck",
+    summary="Model Readiness Check",
+    description="This Route Queries All Registered Machine Learning Models And Returns A Readiness Snapshot Indicating Whether Each Model Is Loaded, Cached, And Ready For Inference Tasks.",
+    tags=["Health"],
+)
 def model_health_check() -> ModelHealthResponse:
     return ModelHealthResponse.model_validate(get_model_readiness_snapshot())

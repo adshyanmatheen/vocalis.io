@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from collections import defaultdict
+from datetime import UTC, datetime, timedelta
+
 from litestar import (
     get,
     post,
@@ -15,6 +18,7 @@ from sqlalchemy.ext.asyncio import (
 )
 
 from app.api.routes.auth_cookies import clear_auth_cookies, set_auth_cookies
+from app.core.config import settings
 from app.domain.auth.constants import REFRESH_TOKEN_COOKIE_NAME
 from app.domain.auth.exceptions import (
     AuthenticationError,
@@ -43,14 +47,35 @@ from app.schemas.responses.auth import (
 )
 
 auth_service = AuthService()
+REGISTER_RATE_LIMIT_WINDOW_SECONDS = 60
+REGISTER_RATE_LIMIT_ATTEMPTS = 5
+register_attempts: dict[str, list[datetime]] = defaultdict(list)
 
 
 @post(
     path="/auth/register",
+    operation_id="registerUser",
+    summary="Register A New User",
+    description="This Route Creates A New User Account With The Provided Name And Password. On Success, Returns Authentication Tokens Via Both The Response Body And HttpOnly Cookies. Rate Limited To 5 Requests Per 60 Seconds Per IP Address.",
+    tags=["Authentication"],
 )
 async def register_user(
-    data: RegisterRequest, database_session: AsyncSession
+    request: Request,
+    data: RegisterRequest,
+    database_session: AsyncSession,
 ) -> Response[AuthResponse]:
+    if settings.app.environment != "testing":
+        client_ip = request.client.host if request.client else "unknown"
+        now = datetime.now(UTC)
+        cutoff = now - timedelta(seconds=REGISTER_RATE_LIMIT_WINDOW_SECONDS)
+        register_attempts[client_ip] = [
+            ts for ts in register_attempts[client_ip] if ts > cutoff
+        ]
+        if len(register_attempts[client_ip]) >= REGISTER_RATE_LIMIT_ATTEMPTS:
+            raise ClientException(
+                "Too many registration attempts. Please try again later."
+            )
+        register_attempts[client_ip].append(now)
     try:
         authentication_result = await auth_service.register_user(
             database_session=database_session,
@@ -88,7 +113,13 @@ async def register_user(
     return response
 
 
-@post(path="/auth/login")
+@post(
+    path="/auth/login",
+    operation_id="loginUser",
+    summary="Login With Credentials",
+    description="This Route Authenticates A User Using Their Username And Password. If Multi-Factor Authentication Is Enabled, Returns A Temporary Token And An MFA Required Flag Instead Of Full Authentication Tokens. On Successful Authentication, Sets Access And Refresh Tokens As HttpOnly Cookies.",
+    tags=["Authentication"],
+)
 async def login_user(
     data: LoginRequest, database_session: AsyncSession
 ) -> Response[AuthResponse] | AuthResponse:
@@ -139,7 +170,14 @@ async def login_user(
     return response
 
 
-@get(path="/auth/me", sync_to_thread=False)
+@get(
+    path="/auth/me",
+    operation_id="getCurrentUser",
+    summary="Get Authenticated User",
+    description="This Route Retrieves The Profile Information For The Currently Authenticated User, Including Their ID, Name, Username, And Profile Picture URL.",
+    tags=["Authentication"],
+    sync_to_thread=False,
+)
 def get_current_user(authenticated_user: User) -> AuthUserResponse:
 
     return AuthUserResponse(
@@ -150,7 +188,13 @@ def get_current_user(authenticated_user: User) -> AuthUserResponse:
     )
 
 
-@post(path="/auth/refresh")
+@post(
+    path="/auth/refresh",
+    operation_id="refreshUserSession",
+    summary="Refresh Access Token",
+    description="This Route Exchanges A Valid Refresh Token From The Request Cookies For A New Access Token And Refresh Token Pair. Returns A 401 Unauthorized Error If The Refresh Token Is Missing, Expired, Or Invalid.",
+    tags=["Authentication"],
+)
 async def refresh_user_session(
     request: Request,
     database_session: AsyncSession,
@@ -185,7 +229,13 @@ async def refresh_user_session(
     return response
 
 
-@post(path="/auth/logout")
+@post(
+    path="/auth/logout",
+    operation_id="logoutUser",
+    summary="Logout And Clear Session",
+    description="This Route Invalidates The Refresh Token In The Database And Clears Both The Access And Refresh Token Cookies From The Response, Effectively Ending The User Session.",
+    tags=["Authentication"],
+)
 async def logout_user(
     request: Request,
     database_session: AsyncSession,

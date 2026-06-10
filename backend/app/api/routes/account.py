@@ -10,7 +10,13 @@ from app.schemas.responses.account import AccountSummaryResponse
 account_repository = AccountRepository()
 
 
-@get(path="/account/summary")
+@get(
+    path="/account/summary",
+    operation_id="getAccountSummary",
+    summary="Get Account Summary",
+    description="This Route Returns A Comprehensive Summary Of The Authenticated User Account Statistics, Including Their Total Assessment Count, Average Performance Metrics, And Other Account-Level Data.",
+    tags=["Account"],
+)
 async def get_account_summary(
     database_session: AsyncSession,
     authenticated_user: User,

@@ -14,6 +14,7 @@ dependencies = [
     "sentry-sdk>=2.30.0",
     "numpy>=2.4.6",
     "phonemizer>=3.3.0",
+    "python-json-logger>=3.3.0",
     "pydantic-settings>=2.14.1",
     "pyjwt>=2.13.0",
     "pyotp>=2.9.0",

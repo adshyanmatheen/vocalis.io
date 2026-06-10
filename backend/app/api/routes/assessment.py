@@ -28,6 +28,10 @@ assessment_service = AssessmentService()
 
 @get(
     path="/assessment/history",
+    operation_id="getAssessmentHistory",
+    summary="Get Assessment History",
+    description="This Route Returns A Paginated List Of The Authenticated User Assessment Attempts, Including Their Scores, Performance Bands, And Target Texts. Also Provides The Average Score Across All Returned Attempts And A Has-More Flag For Client-Side Pagination.",
+    tags=["Assessment"],
 )
 async def get_assessment_history(
     database_session: AsyncSession,
