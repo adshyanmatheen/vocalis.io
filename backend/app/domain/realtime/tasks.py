@@ -103,9 +103,7 @@ def schedule_realtime_inference(
     if not session.target_text:
         return None
 
-    session.inference_in_progress = True
-
-    return asyncio.create_task(
+    task = asyncio.create_task(
         run_realtime_inference(
             user_id=user_id,
             session=session,
@@ -113,3 +111,7 @@ def schedule_realtime_inference(
             on_complete=on_complete,
         )
     )
+    session.inference_task = task
+    session.inference_in_progress = True
+
+    return task

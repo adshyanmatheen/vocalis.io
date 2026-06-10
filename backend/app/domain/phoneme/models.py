@@ -66,17 +66,6 @@ class PhonemeMatch(Struct, frozen=True):
     word: str
 
 
-class PronunciationDiagnosis(Struct, frozen=True):
-    expected_phoneme: str
-    predicted_phoneme: str
-    confidence_score: float
-    severity: str
-    start_time: float
-    end_time: float
-    word: str
-    source: str
-
-
 class ScoredPhonemeResult(TypedDict):
     expected_phoneme: str
     predicted_phoneme: str

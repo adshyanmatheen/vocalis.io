@@ -32,4 +32,4 @@ def health_check() -> HealthResponse:
     tags=["Health"],
 )
 def model_health_check() -> ModelHealthResponse:
-    return ModelHealthResponse.model_validate(get_model_readiness_snapshot())
+    return ModelHealthResponse(**get_model_readiness_snapshot())

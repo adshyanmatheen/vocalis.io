@@ -1,12 +1,12 @@
-from pydantic import BaseModel
+from msgspec import Struct
 
 
-class HealthResponse(BaseModel):
+class HealthResponse(Struct, kw_only=True):
     status: str
     service: str
 
 
-class ModelHealthItemResponse(BaseModel):
+class ModelHealthItemResponse(Struct, kw_only=True):
     name: str
     model_id: str
     status: str
@@ -17,7 +17,7 @@ class ModelHealthItemResponse(BaseModel):
     load_duration_seconds: float | None = None
 
 
-class ModelHealthResponse(BaseModel):
+class ModelHealthResponse(Struct, kw_only=True):
     ready: bool
     status: str
     cache_dir: str

@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import (
     datetime,
 )
+from typing import Any
 
 from sqlalchemy import delete, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -12,6 +13,16 @@ from app.domain.database.models.mfa_challenge import MFAChallenge
 from app.domain.database.models.session import Session
 from app.domain.database.models.user import User
 from app.domain.utils import normalize_datetime
+
+
+async def _commit_refresh(database_session: AsyncSession, obj: Any = None) -> None:
+    try:
+        await database_session.commit()
+        if obj is not None:
+            await database_session.refresh(obj)
+    except Exception:
+        await database_session.rollback()
+        raise
 
 
 class AuthRepository:
@@ -33,8 +44,7 @@ class AuthRepository:
 
         database_session.add(user)
 
-        await database_session.commit()
-        await database_session.refresh(user)
+        await _commit_refresh(database_session, user)
 
         return user
 
@@ -70,8 +80,7 @@ class AuthRepository:
 
         database_session.add(session)
 
-        await database_session.commit()
-        await database_session.refresh(session)
+        await _commit_refresh(database_session, session)
         return session
 
     async def get_session_by_token(
@@ -100,8 +109,7 @@ class AuthRepository:
         session.session_token = session_token
         session.expires_at = normalize_datetime(expires_at)
         database_session.add(session)
-        await database_session.commit()
-        await database_session.refresh(session)
+        await _commit_refresh(database_session, session)
         return session
 
     async def delete_session(
@@ -110,7 +118,7 @@ class AuthRepository:
         statement = delete(Session).where(Session.session_token == session_token)
 
         await database_session.execute(statement)
-        await database_session.commit()
+        await _commit_refresh(database_session)
 
     async def set_user_mfa_secret(
         self, *, database_session: AsyncSession, user: User, secret: str | None
@@ -118,8 +126,7 @@ class AuthRepository:
         user.mfa_secret = secret
 
         database_session.add(user)
-        await database_session.commit()
-        await database_session.refresh(user)
+        await _commit_refresh(database_session, user)
 
         return user
 
@@ -132,8 +139,7 @@ class AuthRepository:
             user.mfa_secret = None
 
         database_session.add(user)
-        await database_session.commit()
-        await database_session.refresh(user)
+        await _commit_refresh(database_session, user)
 
         return user
 
@@ -153,8 +159,7 @@ class AuthRepository:
 
         database_session.add(challenge)
 
-        await database_session.commit()
-        await database_session.refresh(challenge)
+        await _commit_refresh(database_session, challenge)
 
         return challenge
 
@@ -176,8 +181,7 @@ class AuthRepository:
         challenge.used_at = normalize_datetime(used_at)
 
         database_session.add(challenge)
-        await database_session.commit()
-        await database_session.refresh(challenge)
+        await _commit_refresh(database_session, challenge)
 
         return challenge
 
@@ -190,7 +194,7 @@ class AuthRepository:
         cutoff = normalize_datetime(cutoff)
         statement = delete(AuthAttempt).where(AuthAttempt.attempted_at < cutoff)
         await database_session.execute(statement)
-        await database_session.commit()
+        await _commit_refresh(database_session)
 
     async def count_recent_auth_attempts(
         self,
@@ -220,8 +224,7 @@ class AuthRepository:
             identifier=identifier, attempted_at=normalize_datetime(attempted_at)
         )
         database_session.add(attempt)
-        await database_session.commit()
-        await database_session.refresh(attempt)
+        await _commit_refresh(database_session, attempt)
         return attempt
 
     async def delete_auth_attempts_by_identifier(
@@ -232,4 +235,4 @@ class AuthRepository:
     ) -> None:
         statement = delete(AuthAttempt).where(AuthAttempt.identifier == identifier)
         await database_session.execute(statement)
-        await database_session.commit()
+        await _commit_refresh(database_session)

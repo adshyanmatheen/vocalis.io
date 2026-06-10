@@ -62,7 +62,7 @@ export type AccountUserResponse = {
   is_active: boolean
   mfa_enabled: boolean
   name: string
-  profile_picture_url: string
+  avatar_url: string
   username: string
 }
 
@@ -106,7 +106,7 @@ export type AuthResponse = {
 export type AuthUserResponse = {
   id: number
   name: string
-  profile_picture_url: string
+  avatar_url: string
   username: string
 }
 

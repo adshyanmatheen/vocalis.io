@@ -98,7 +98,7 @@ async def register_user(
                     id=authentication_result.user.id,
                     name=authentication_result.user.name,
                     username=authentication_result.user.username,
-                    profile_picture_url=authentication_result.user.avatar_url,
+                    avatar_url=authentication_result.user.avatar_url,
                 )
             ),
         )
@@ -155,7 +155,7 @@ async def login_user(
                     id=authentication_result.user.id,
                     name=authentication_result.user.name,
                     username=authentication_result.user.username,
-                    profile_picture_url=authentication_result.user.avatar_url,
+                    avatar_url=authentication_result.user.avatar_url,
                 )
             ),
         )
@@ -184,7 +184,7 @@ def get_current_user(authenticated_user: User) -> AuthUserResponse:
         id=authenticated_user.id,
         name=authenticated_user.name,
         username=authenticated_user.username,
-        profile_picture_url=authenticated_user.avatar_url,
+        avatar_url=authenticated_user.avatar_url,
     )
 
 
@@ -217,7 +217,7 @@ async def refresh_user_session(
                 id=authentication_result.user.id,
                 name=authentication_result.user.name,
                 username=authentication_result.user.username,
-                profile_picture_url=authentication_result.user.avatar_url,
+                avatar_url=authentication_result.user.avatar_url,
             ),
         )
     )

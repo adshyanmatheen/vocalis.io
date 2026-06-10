@@ -11,7 +11,6 @@ from sqlalchemy.ext.asyncio import (
 from app.core.config import settings
 
 logger = logging.getLogger(__name__)
-logger.info("Database engine configured for %s", settings.app.database_url)
 
 database_engine = create_async_engine(
     settings.app.database_url,

@@ -6,6 +6,8 @@ class AlignmentRequestSchema(Struct, frozen=True):
     target_text: str
 
     def __post_init__(self) -> None:
+        if not self.audio_bytes:
+            raise ValueError("audio_bytes is required")
         if not self.target_text.strip():
             raise ValueError("target_text is required")
         if len(self.target_text) > 500:

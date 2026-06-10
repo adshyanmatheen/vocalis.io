@@ -9,7 +9,7 @@ class AuthUserResponse(Struct, kw_only=True):
     id: int
     name: str
     username: str
-    profile_picture_url: str
+    avatar_url: str
 
 
 class AuthResponse(Struct, kw_only=True):

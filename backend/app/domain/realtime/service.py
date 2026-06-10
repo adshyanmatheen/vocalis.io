@@ -17,6 +17,16 @@ from app.domain.phoneme.service import PhonemeService
 from app.domain.phoneme.utils import extract_weak_phonemes
 
 
+def _normalize_word_score_keys(word_scores: list[dict[str, Any]]) -> None:
+    for ws in word_scores:
+        if not isinstance(ws, dict):
+            continue
+        if "weighted_score" not in ws and "score" in ws:
+            ws["weighted_score"] = ws["score"]
+        if "score" not in ws and "weighted_score" in ws:
+            ws["score"] = ws["weighted_score"]
+
+
 class RealtimeAssessmentService:
     def __init__(self, phoneme_service: PhonemeService | None = None) -> None:
         self.phoneme = phoneme_service or PhonemeService()
@@ -362,15 +372,7 @@ class RealtimeAssessmentService:
             phoneme_results.extend(scoring_window.get("phoneme_results", []))
             word_scores.extend(scoring_window.get("word_scores", []))
 
-        # Normalize word score keys across producers/consumers.
-        # Some clients expect `score` while newer scoring emits `weighted_score`.
-        for ws in word_scores:
-            if not isinstance(ws, dict):
-                continue
-            if "weighted_score" not in ws and "score" in ws:
-                ws["weighted_score"] = ws["score"]
-            if "score" not in ws and "weighted_score" in ws:
-                ws["score"] = ws["weighted_score"]
+        _normalize_word_score_keys(word_scores)
 
         overall_score = sum(
             float(window.get("overall_score", 0.0)) for window in scoring_windows

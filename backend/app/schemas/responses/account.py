@@ -9,7 +9,7 @@ class AccountUserResponse(Struct, kw_only=True):
     id: int
     name: str
     username: str
-    profile_picture_url: str
+    avatar_url: str
     created_at: str
     mfa_enabled: bool
     is_active: bool

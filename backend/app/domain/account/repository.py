@@ -58,7 +58,7 @@ class AccountRepository:
                 id=user.id,
                 name=user.name,
                 username=user.username,
-                profile_picture_url=user.avatar_url,
+                avatar_url=user.avatar_url,
                 created_at=str(user.created_at),
                 mfa_enabled=user.mfa_enabled,
                 is_active=user.is_active,

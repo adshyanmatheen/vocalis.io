@@ -129,7 +129,7 @@ async def login_with_mfa(
                     id=authentication_result.user.id,
                     name=authentication_result.user.name,
                     username=authentication_result.user.username,
-                    profile_picture_url=authentication_result.user.avatar_url,
+                    avatar_url=authentication_result.user.avatar_url,
                 )
             ),
             mfa_enabled=True,

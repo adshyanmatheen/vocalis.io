@@ -4,6 +4,7 @@ from datetime import (
     UTC,
     datetime,
 )
+from typing import Any
 
 from sqlalchemy import (
     desc,
@@ -24,6 +25,16 @@ from app.domain.database.models.pronunciation_attempt import (
 )
 
 
+async def _commit_refresh(database_session: AsyncSession, obj: Any = None) -> None:
+    try:
+        await database_session.commit()
+        if obj is not None:
+            await database_session.refresh(obj)
+    except Exception:
+        await database_session.rollback()
+        raise
+
+
 class AssessmentRepository:
     async def create_attempt(
         self, *, database_session: AsyncSession, payload: AssessmentPersistencePayload
@@ -42,8 +53,7 @@ class AssessmentRepository:
 
         database_session.add(attempt)
 
-        await database_session.commit()
-        await database_session.refresh(attempt)
+        await _commit_refresh(database_session, attempt)
 
         return attempt
 
@@ -132,8 +142,7 @@ class AssessmentRepository:
 
         database_session.add(memory)
 
-        await database_session.commit()
-        await database_session.refresh(memory)
+        await _commit_refresh(database_session, memory)
 
         return memory
 
@@ -172,7 +181,5 @@ class AssessmentRepository:
 
         memory.last_seen_at = datetime.now(UTC)
 
-        await database_session.commit()
-
-        await database_session.refresh(memory)
+        await _commit_refresh(database_session, memory)
         return memory

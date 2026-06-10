@@ -602,10 +602,10 @@ export default function Home() {
             transition={{ type: 'spring', stiffness: 520, damping: 22, mass: 0.55 }}
           >
             <Avatar className="size-8 overflow-hidden rounded-full bg-black ring-1 ring-white/10 after:border-white/10 sm:size-9">
-              {user?.profile_picture_url ? (
+              {user?.avatar_url ? (
                 <AvatarImage
                   className="scale-[1.02] rounded-full"
-                  src={user.profile_picture_url}
+                  src={user.avatar_url}
                   alt={user.name ? `${user.name} profile picture` : 'Profile picture'}
                 />
               ) : null}

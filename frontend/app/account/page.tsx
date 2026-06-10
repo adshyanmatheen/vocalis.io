@@ -330,10 +330,10 @@ export default function Account() {
 
             <motion.div className="flex flex-col items-center" variants={itemVariants}>
               <Avatar className="size-24 overflow-hidden rounded-full bg-black ring-1 ring-white/10 sm:size-28">
-                {displayUser?.profile_picture_url ? (
+                {displayUser?.avatar_url ? (
                   <AvatarImage
                     className="scale-[1.02] rounded-full"
-                    src={displayUser.profile_picture_url}
+                    src={displayUser.avatar_url}
                     alt={
                       displayUser.name ? `${displayUser.name} profile picture` : 'Profile picture'
                     }
