@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import logging
 from collections import defaultdict
 from datetime import UTC, datetime, timedelta
@@ -12,20 +13,23 @@ ASSESSMENT_RATE_LIMIT_ATTEMPTS = 10
 
 class AssessmentRateLimiter:
     def __init__(self) -> None:
+        self._lock = asyncio.Lock()
         self.user_attempts: dict[int, list[datetime]] = defaultdict(list)
 
-    def is_rate_limited(self, *, user_id: int) -> bool:
-        now = datetime.now(UTC)
-        cutoff = now - timedelta(seconds=ASSESSMENT_RATE_LIMIT_WINDOW_SECONDS)
+    async def is_rate_limited(self, *, user_id: int) -> bool:
+        async with self._lock:
+            now = datetime.now(UTC)
+            cutoff = now - timedelta(seconds=ASSESSMENT_RATE_LIMIT_WINDOW_SECONDS)
 
-        self.user_attempts[user_id] = [
-            attempt for attempt in self.user_attempts[user_id] if attempt > cutoff
-        ]
+            self.user_attempts[user_id] = [
+                attempt for attempt in self.user_attempts[user_id] if attempt > cutoff
+            ]
 
-        return len(self.user_attempts[user_id]) >= ASSESSMENT_RATE_LIMIT_ATTEMPTS
+            return len(self.user_attempts[user_id]) >= ASSESSMENT_RATE_LIMIT_ATTEMPTS
 
-    def record_attempt(self, *, user_id: int) -> None:
-        self.user_attempts[user_id].append(datetime.now(UTC))
+    async def record_attempt(self, *, user_id: int) -> None:
+        async with self._lock:
+            self.user_attempts[user_id].append(datetime.now(UTC))
 
 
 assessment_rate_limiter = AssessmentRateLimiter()

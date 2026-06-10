@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import logging
 from collections import deque
 from datetime import UTC, datetime
@@ -14,6 +15,10 @@ from app.api.websockets.models import (
 from app.domain.utils import normalize_datetime
 
 logger = logging.getLogger(__name__)
+
+IDLE_TIMEOUT_SECONDS = 300
+SESSION_MAX_DURATION_SECONDS = 1800
+PRUNE_INTERVAL_SECONDS = 30
 
 
 class ConnectionManager:
@@ -62,6 +67,29 @@ class ConnectionManager:
             session.scoring_windows.clear()
 
         self.active_connections.pop(user_id, None)
+
+    def prune_stale_connections(self) -> None:
+        now = datetime.now(UTC)
+        stale_ids = []
+
+        for user_id, session in list(self.active_sessions.items()):
+            idle_seconds = (now - session.last_activity).total_seconds()
+            session_seconds = (now - session.started_at).total_seconds()
+
+            if (
+                idle_seconds > IDLE_TIMEOUT_SECONDS
+                or session_seconds > SESSION_MAX_DURATION_SECONDS
+            ):
+                stale_ids.append(user_id)
+
+        for user_id in stale_ids:
+            logger.info("Pruning stale WebSocket connection for user %d", user_id)
+            self.disconnect(user_id=user_id)
+
+    async def run_pruning_loop(self) -> None:
+        while True:
+            await asyncio.sleep(PRUNE_INTERVAL_SECONDS)
+            self.prune_stale_connections()
 
     async def send_json(self, *, user_id: int, payload: Any) -> None:
         websocket = self.active_connections.get(user_id)

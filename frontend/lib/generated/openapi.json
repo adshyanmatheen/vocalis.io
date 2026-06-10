@@ -1100,7 +1100,11 @@
             "deprecated": null,
             "description": null,
             "discriminator": null,
-            "enum": null,
+            "enum": [
+              "improving",
+              "stable",
+              "declining"
+            ],
             "example": null,
             "examples": null,
             "exclusive_maximum": null,
@@ -1973,7 +1977,9 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["focus_phonemes"],
+        "required": [
+          "focus_phonemes"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -2251,7 +2257,11 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["performance_band_counts", "recent_weak_phonemes", "score_series"],
+        "required": [
+          "performance_band_counts",
+          "recent_weak_phonemes",
+          "score_series"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -2962,7 +2972,11 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["attempt_id", "created_at", "score"],
+        "required": [
+          "attempt_id",
+          "created_at",
+          "score"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -3037,7 +3051,12 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["activity", "personalization", "progress", "user"],
+        "required": [
+          "activity",
+          "personalization",
+          "progress",
+          "user"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -3089,6 +3108,60 @@
         "pattern_properties": null,
         "prefix_items": null,
         "properties": {
+          "avatar_url": {
+            "additional_properties": null,
+            "all_of": null,
+            "any_of": null,
+            "const": null,
+            "contains": null,
+            "content_encoding": null,
+            "content_media_type": null,
+            "content_schema": null,
+            "default": null,
+            "dependent_required": null,
+            "dependent_schemas": null,
+            "deprecated": null,
+            "description": null,
+            "discriminator": null,
+            "enum": null,
+            "example": null,
+            "examples": null,
+            "exclusive_maximum": null,
+            "exclusive_minimum": null,
+            "external_docs": null,
+            "format": null,
+            "items": null,
+            "max_contains": null,
+            "max_items": null,
+            "max_length": null,
+            "max_properties": null,
+            "maximum": null,
+            "min_contains": null,
+            "min_items": null,
+            "min_length": null,
+            "min_properties": null,
+            "minimum": null,
+            "multiple_of": null,
+            "one_of": null,
+            "pattern": null,
+            "pattern_properties": null,
+            "prefix_items": null,
+            "properties": null,
+            "property_names": null,
+            "read_only": null,
+            "required": null,
+            "schema_else": null,
+            "schema_if": null,
+            "schema_not": null,
+            "then": null,
+            "title": null,
+            "type": "string",
+            "unevaluated_items": null,
+            "unevaluated_properties": null,
+            "unique_items": null,
+            "write_only": null,
+            "xml": null
+          },
           "created_at": {
             "additional_properties": null,
             "all_of": null,
@@ -3359,60 +3432,6 @@
             "write_only": null,
             "xml": null
           },
-          "profile_picture_url": {
-            "additional_properties": null,
-            "all_of": null,
-            "any_of": null,
-            "const": null,
-            "contains": null,
-            "content_encoding": null,
-            "content_media_type": null,
-            "content_schema": null,
-            "default": null,
-            "dependent_required": null,
-            "dependent_schemas": null,
-            "deprecated": null,
-            "description": null,
-            "discriminator": null,
-            "enum": null,
-            "example": null,
-            "examples": null,
-            "exclusive_maximum": null,
-            "exclusive_minimum": null,
-            "external_docs": null,
-            "format": null,
-            "items": null,
-            "max_contains": null,
-            "max_items": null,
-            "max_length": null,
-            "max_properties": null,
-            "maximum": null,
-            "min_contains": null,
-            "min_items": null,
-            "min_length": null,
-            "min_properties": null,
-            "minimum": null,
-            "multiple_of": null,
-            "one_of": null,
-            "pattern": null,
-            "pattern_properties": null,
-            "prefix_items": null,
-            "properties": null,
-            "property_names": null,
-            "read_only": null,
-            "required": null,
-            "schema_else": null,
-            "schema_if": null,
-            "schema_not": null,
-            "then": null,
-            "title": null,
-            "type": "string",
-            "unevaluated_items": null,
-            "unevaluated_properties": null,
-            "unique_items": null,
-            "write_only": null,
-            "xml": null
-          },
           "username": {
             "additional_properties": null,
             "all_of": null,
@@ -3471,12 +3490,12 @@
         "property_names": null,
         "read_only": null,
         "required": [
+          "avatar_url",
           "created_at",
           "id",
           "is_active",
           "mfa_enabled",
           "name",
-          "profile_picture_url",
           "username"
         ],
         "schema_else": null,
@@ -3641,7 +3660,10 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["count", "phoneme"],
+        "required": [
+          "count",
+          "phoneme"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -3804,7 +3826,10 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["audio_bytes", "target_text"],
+        "required": [
+          "audio_bytes",
+          "target_text"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -4964,6 +4989,168 @@
             "write_only": null,
             "xml": null
           },
+          "has_more": {
+            "additional_properties": null,
+            "all_of": null,
+            "any_of": null,
+            "const": null,
+            "contains": null,
+            "content_encoding": null,
+            "content_media_type": null,
+            "content_schema": null,
+            "default": null,
+            "dependent_required": null,
+            "dependent_schemas": null,
+            "deprecated": null,
+            "description": null,
+            "discriminator": null,
+            "enum": null,
+            "example": null,
+            "examples": null,
+            "exclusive_maximum": null,
+            "exclusive_minimum": null,
+            "external_docs": null,
+            "format": null,
+            "items": null,
+            "max_contains": null,
+            "max_items": null,
+            "max_length": null,
+            "max_properties": null,
+            "maximum": null,
+            "min_contains": null,
+            "min_items": null,
+            "min_length": null,
+            "min_properties": null,
+            "minimum": null,
+            "multiple_of": null,
+            "one_of": null,
+            "pattern": null,
+            "pattern_properties": null,
+            "prefix_items": null,
+            "properties": null,
+            "property_names": null,
+            "read_only": null,
+            "required": null,
+            "schema_else": null,
+            "schema_if": null,
+            "schema_not": null,
+            "then": null,
+            "title": null,
+            "type": "boolean",
+            "unevaluated_items": null,
+            "unevaluated_properties": null,
+            "unique_items": null,
+            "write_only": null,
+            "xml": null
+          },
+          "limit": {
+            "additional_properties": null,
+            "all_of": null,
+            "any_of": null,
+            "const": null,
+            "contains": null,
+            "content_encoding": null,
+            "content_media_type": null,
+            "content_schema": null,
+            "default": null,
+            "dependent_required": null,
+            "dependent_schemas": null,
+            "deprecated": null,
+            "description": null,
+            "discriminator": null,
+            "enum": null,
+            "example": null,
+            "examples": null,
+            "exclusive_maximum": null,
+            "exclusive_minimum": null,
+            "external_docs": null,
+            "format": null,
+            "items": null,
+            "max_contains": null,
+            "max_items": null,
+            "max_length": null,
+            "max_properties": null,
+            "maximum": null,
+            "min_contains": null,
+            "min_items": null,
+            "min_length": null,
+            "min_properties": null,
+            "minimum": null,
+            "multiple_of": null,
+            "one_of": null,
+            "pattern": null,
+            "pattern_properties": null,
+            "prefix_items": null,
+            "properties": null,
+            "property_names": null,
+            "read_only": null,
+            "required": null,
+            "schema_else": null,
+            "schema_if": null,
+            "schema_not": null,
+            "then": null,
+            "title": null,
+            "type": "integer",
+            "unevaluated_items": null,
+            "unevaluated_properties": null,
+            "unique_items": null,
+            "write_only": null,
+            "xml": null
+          },
+          "offset": {
+            "additional_properties": null,
+            "all_of": null,
+            "any_of": null,
+            "const": null,
+            "contains": null,
+            "content_encoding": null,
+            "content_media_type": null,
+            "content_schema": null,
+            "default": null,
+            "dependent_required": null,
+            "dependent_schemas": null,
+            "deprecated": null,
+            "description": null,
+            "discriminator": null,
+            "enum": null,
+            "example": null,
+            "examples": null,
+            "exclusive_maximum": null,
+            "exclusive_minimum": null,
+            "external_docs": null,
+            "format": null,
+            "items": null,
+            "max_contains": null,
+            "max_items": null,
+            "max_length": null,
+            "max_properties": null,
+            "maximum": null,
+            "min_contains": null,
+            "min_items": null,
+            "min_length": null,
+            "min_properties": null,
+            "minimum": null,
+            "multiple_of": null,
+            "one_of": null,
+            "pattern": null,
+            "pattern_properties": null,
+            "prefix_items": null,
+            "properties": null,
+            "property_names": null,
+            "read_only": null,
+            "required": null,
+            "schema_else": null,
+            "schema_if": null,
+            "schema_not": null,
+            "then": null,
+            "title": null,
+            "type": "integer",
+            "unevaluated_items": null,
+            "unevaluated_properties": null,
+            "unique_items": null,
+            "write_only": null,
+            "xml": null
+          },
           "total_attempts": {
             "additional_properties": null,
             "all_of": null,
@@ -5021,7 +5208,14 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["attempts", "average_score", "total_attempts"],
+        "required": [
+          "attempts",
+          "average_score",
+          "has_more",
+          "limit",
+          "offset",
+          "total_attempts"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -5839,6 +6033,60 @@
         "pattern_properties": null,
         "prefix_items": null,
         "properties": {
+          "avatar_url": {
+            "additional_properties": null,
+            "all_of": null,
+            "any_of": null,
+            "const": null,
+            "contains": null,
+            "content_encoding": null,
+            "content_media_type": null,
+            "content_schema": null,
+            "default": null,
+            "dependent_required": null,
+            "dependent_schemas": null,
+            "deprecated": null,
+            "description": null,
+            "discriminator": null,
+            "enum": null,
+            "example": null,
+            "examples": null,
+            "exclusive_maximum": null,
+            "exclusive_minimum": null,
+            "external_docs": null,
+            "format": null,
+            "items": null,
+            "max_contains": null,
+            "max_items": null,
+            "max_length": null,
+            "max_properties": null,
+            "maximum": null,
+            "min_contains": null,
+            "min_items": null,
+            "min_length": null,
+            "min_properties": null,
+            "minimum": null,
+            "multiple_of": null,
+            "one_of": null,
+            "pattern": null,
+            "pattern_properties": null,
+            "prefix_items": null,
+            "properties": null,
+            "property_names": null,
+            "read_only": null,
+            "required": null,
+            "schema_else": null,
+            "schema_if": null,
+            "schema_not": null,
+            "then": null,
+            "title": null,
+            "type": "string",
+            "unevaluated_items": null,
+            "unevaluated_properties": null,
+            "unique_items": null,
+            "write_only": null,
+            "xml": null
+          },
           "id": {
             "additional_properties": null,
             "all_of": null,
@@ -5894,60 +6142,6 @@
             "xml": null
           },
           "name": {
-            "additional_properties": null,
-            "all_of": null,
-            "any_of": null,
-            "const": null,
-            "contains": null,
-            "content_encoding": null,
-            "content_media_type": null,
-            "content_schema": null,
-            "default": null,
-            "dependent_required": null,
-            "dependent_schemas": null,
-            "deprecated": null,
-            "description": null,
-            "discriminator": null,
-            "enum": null,
-            "example": null,
-            "examples": null,
-            "exclusive_maximum": null,
-            "exclusive_minimum": null,
-            "external_docs": null,
-            "format": null,
-            "items": null,
-            "max_contains": null,
-            "max_items": null,
-            "max_length": null,
-            "max_properties": null,
-            "maximum": null,
-            "min_contains": null,
-            "min_items": null,
-            "min_length": null,
-            "min_properties": null,
-            "minimum": null,
-            "multiple_of": null,
-            "one_of": null,
-            "pattern": null,
-            "pattern_properties": null,
-            "prefix_items": null,
-            "properties": null,
-            "property_names": null,
-            "read_only": null,
-            "required": null,
-            "schema_else": null,
-            "schema_if": null,
-            "schema_not": null,
-            "then": null,
-            "title": null,
-            "type": "string",
-            "unevaluated_items": null,
-            "unevaluated_properties": null,
-            "unique_items": null,
-            "write_only": null,
-            "xml": null
-          },
-          "profile_picture_url": {
             "additional_properties": null,
             "all_of": null,
             "any_of": null,
@@ -6058,7 +6252,12 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["id", "name", "profile_picture_url", "username"],
+        "required": [
+          "avatar_url",
+          "id",
+          "name",
+          "username"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -6383,7 +6582,13 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["character", "confidence", "end_time", "index", "start_time"],
+        "required": [
+          "character",
+          "confidence",
+          "end_time",
+          "index",
+          "start_time"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -6546,7 +6751,10 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["service", "status"],
+        "required": [
+          "service",
+          "status"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -6709,7 +6917,10 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["password", "username"],
+        "required": [
+          "password",
+          "username"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -6818,7 +7029,9 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["success"],
+        "required": [
+          "success"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -6927,7 +7140,9 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["code"],
+        "required": [
+          "code"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -7090,7 +7305,10 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["code", "temporary_token"],
+        "required": [
+          "code",
+          "temporary_token"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -7584,7 +7802,10 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["mfa_enabled", "user"],
+        "required": [
+          "mfa_enabled",
+          "user"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -7747,7 +7968,10 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["mfa_enabled", "provisioning_uri"],
+        "required": [
+          "mfa_enabled",
+          "provisioning_uri"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -7856,7 +8080,9 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["code"],
+        "required": [
+          "code"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -8019,7 +8245,10 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["mfa_enabled", "success"],
+        "required": [
+          "mfa_enabled",
+          "success"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -9051,7 +9280,11 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["model_id", "name", "status"],
+        "required": [
+          "model_id",
+          "name",
+          "status"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -9714,7 +9947,10 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["name", "password"],
+        "required": [
+          "name",
+          "password"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -9931,7 +10167,11 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["name", "status", "version"],
+        "required": [
+          "name",
+          "status",
+          "version"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -10363,7 +10603,14 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["articulation_focus", "category", "difficulty", "id", "text", "word_count"],
+        "required": [
+          "articulation_focus",
+          "category",
+          "difficulty",
+          "id",
+          "text",
+          "word_count"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -10634,7 +10881,12 @@
         },
         "property_names": null,
         "read_only": null,
-        "required": ["confidence", "end_time", "start_time", "text"],
+        "required": [
+          "confidence",
+          "end_time",
+          "start_time",
+          "text"
+        ],
         "schema_else": null,
         "schema_if": null,
         "schema_not": null,
@@ -10669,9 +10921,9 @@
       "get": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Provides A Basic Health Check Endpoint That Returns The Application Name, Version, And Current Operational Status To Confirm The Service Is Running.",
         "external_docs": null,
-        "operation_id": "ApiV1Root",
+        "operation_id": "root",
         "parameters": null,
         "request_body": null,
         "responses": {
@@ -10695,8 +10947,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "Root",
-        "tags": null
+        "summary": "Root Health Check",
+        "tags": [
+          "Root"
+        ]
       },
       "head": null,
       "options": null,
@@ -10715,9 +10969,9 @@
       "get": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Returns A Comprehensive Summary Of The Authenticated User Account Statistics, Including Their Total Assessment Count, Average Performance Metrics, And Other Account-Level Data.",
         "external_docs": null,
-        "operation_id": "ApiV1AccountSummaryGetAccountSummary",
+        "operation_id": "getAccountSummary",
         "parameters": null,
         "request_body": null,
         "responses": {
@@ -10741,8 +10995,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "GetAccountSummary",
-        "tags": null
+        "summary": "Get Account Summary",
+        "tags": [
+          "Account"
+        ]
       },
       "head": null,
       "options": null,
@@ -10766,9 +11022,9 @@
       "post": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Processes Uploaded Audio Bytes By Decoding, Validating, And Normalizing The Waveform, Then Performs Phoneme-Level Alignment Against The Provided Target Text. Returns Detailed Alignment Data Including Phoneme Boundaries And Confidence Scores. Rate Limited To 10 Requests Per 60 Seconds Per IP Address.",
         "external_docs": null,
-        "operation_id": "ApiV1AlignmentPerformAlignment",
+        "operation_id": "performAlignment",
         "parameters": null,
         "request_body": {
           "content": {
@@ -11009,7 +11265,11 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": ["null", "object", "array"],
+                      "type": [
+                        "null",
+                        "object",
+                        "array"
+                      ],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -11073,7 +11333,10 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": ["detail", "status_code"],
+                  "required": [
+                    "detail",
+                    "status_code"
+                  ],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -11095,8 +11358,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "PerformAlignment",
-        "tags": null
+        "summary": "Align Audio To Target Text",
+        "tags": [
+          "Alignment"
+        ]
       },
       "put": null,
       "ref": null,
@@ -11110,9 +11375,9 @@
       "get": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Returns A Paginated List Of The Authenticated User Assessment Attempts, Including Their Scores, Performance Bands, And Target Texts. Also Provides The Average Score Across All Returned Attempts And A Has-More Flag For Client-Side Pagination.",
         "external_docs": null,
-        "operation_id": "ApiV1AssessmentHistoryGetAssessmentHistory",
+        "operation_id": "getAssessmentHistory",
         "parameters": [
           {
             "allow_empty_value": false,
@@ -11159,6 +11424,74 @@
               "min_length": null,
               "min_properties": null,
               "minimum": 1.0,
+              "multiple_of": null,
+              "one_of": null,
+              "pattern": null,
+              "pattern_properties": null,
+              "prefix_items": null,
+              "properties": null,
+              "property_names": null,
+              "read_only": null,
+              "required": null,
+              "schema_else": null,
+              "schema_if": null,
+              "schema_not": null,
+              "then": null,
+              "title": null,
+              "type": "integer",
+              "unevaluated_items": null,
+              "unevaluated_properties": null,
+              "unique_items": null,
+              "write_only": null,
+              "xml": null
+            },
+            "style": null
+          },
+          {
+            "allow_empty_value": false,
+            "allow_reserved": false,
+            "content": null,
+            "deprecated": false,
+            "description": null,
+            "example": null,
+            "examples": null,
+            "explode": null,
+            "name": "offset",
+            "param_in": "query",
+            "required": false,
+            "schema": {
+              "additional_properties": null,
+              "all_of": null,
+              "any_of": null,
+              "const": null,
+              "contains": null,
+              "content_encoding": null,
+              "content_media_type": null,
+              "content_schema": null,
+              "default": 0,
+              "dependent_required": null,
+              "dependent_schemas": null,
+              "deprecated": null,
+              "description": null,
+              "discriminator": null,
+              "enum": null,
+              "example": null,
+              "examples": null,
+              "exclusive_maximum": null,
+              "exclusive_minimum": null,
+              "external_docs": null,
+              "format": null,
+              "items": null,
+              "max_contains": null,
+              "max_items": null,
+              "max_length": null,
+              "max_properties": null,
+              "maximum": null,
+              "min_contains": null,
+              "min_items": null,
+              "min_length": null,
+              "min_properties": null,
+              "minimum": 0.0,
               "multiple_of": null,
               "one_of": null,
               "pattern": null,
@@ -11407,7 +11740,11 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": ["null", "object", "array"],
+                      "type": [
+                        "null",
+                        "object",
+                        "array"
+                      ],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -11471,7 +11808,10 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": ["detail", "status_code"],
+                  "required": [
+                    "detail",
+                    "status_code"
+                  ],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -11493,8 +11833,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "GetAssessmentHistory",
-        "tags": null
+        "summary": "Get Assessment History",
+        "tags": [
+          "Assessment"
+        ]
       },
       "head": null,
       "options": null,
@@ -11518,9 +11860,9 @@
       "post": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Authenticates A User Using Their Username And Password. If Multi-Factor Authentication Is Enabled, Returns A Temporary Token And An MFA Required Flag Instead Of Full Authentication Tokens. On Successful Authentication, Sets Access And Refresh Tokens As HttpOnly Cookies.",
         "external_docs": null,
-        "operation_id": "ApiV1AuthLoginLoginUser",
+        "operation_id": "loginUser",
         "parameters": null,
         "request_body": {
           "content": {
@@ -11870,7 +12212,11 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": ["null", "object", "array"],
+                      "type": [
+                        "null",
+                        "object",
+                        "array"
+                      ],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -11934,7 +12280,10 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": ["detail", "status_code"],
+                  "required": [
+                    "detail",
+                    "status_code"
+                  ],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -11956,8 +12305,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "LoginUser",
-        "tags": null
+        "summary": "Login With Credentials",
+        "tags": [
+          "Authentication"
+        ]
       },
       "put": null,
       "ref": null,
@@ -11976,9 +12327,9 @@
       "post": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Invalidates The Refresh Token In The Database And Clears Both The Access And Refresh Token Cookies From The Response, Effectively Ending The User Session.",
         "external_docs": null,
-        "operation_id": "ApiV1AuthLogoutLogoutUser",
+        "operation_id": "logoutUser",
         "parameters": null,
         "request_body": null,
         "responses": {
@@ -12002,8 +12353,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "LogoutUser",
-        "tags": null
+        "summary": "Logout And Clear Session",
+        "tags": [
+          "Authentication"
+        ]
       },
       "put": null,
       "ref": null,
@@ -12017,9 +12370,9 @@
       "get": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Retrieves The Profile Information For The Currently Authenticated User, Including Their ID, Name, Username, And Profile Picture URL.",
         "external_docs": null,
-        "operation_id": "ApiV1AuthMeGetCurrentUser",
+        "operation_id": "getCurrentUser",
         "parameters": null,
         "request_body": null,
         "responses": {
@@ -12043,8 +12396,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "GetCurrentUser",
-        "tags": null
+        "summary": "Get Authenticated User",
+        "tags": [
+          "Authentication"
+        ]
       },
       "head": null,
       "options": null,
@@ -12068,9 +12423,9 @@
       "post": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Disables Multi-Factor Authentication For The Authenticated User After Validating Their Current TOTP Code. Requires The User To Confirm They Have Access To Their Authenticator App Before Proceeding.",
         "external_docs": null,
-        "operation_id": "ApiV1AuthMfaDisableDisableMfa",
+        "operation_id": "disableMfa",
         "parameters": null,
         "request_body": {
           "content": {
@@ -12311,7 +12666,11 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": ["null", "object", "array"],
+                      "type": [
+                        "null",
+                        "object",
+                        "array"
+                      ],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -12375,7 +12734,10 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": ["detail", "status_code"],
+                  "required": [
+                    "detail",
+                    "status_code"
+                  ],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -12397,8 +12759,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "DisableMfa",
-        "tags": null
+        "summary": "Disable MFA For User",
+        "tags": [
+          "Multi-Factor Authentication"
+        ]
       },
       "put": null,
       "ref": null,
@@ -12417,9 +12781,9 @@
       "post": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Completes The Multi-Factor Authentication Flow After An Initial Login Challenge. Validates The Temporary Token And TOTP Code, Then Returns Full Authentication Tokens And Sets HttpOnly Cookies On Success.",
         "external_docs": null,
-        "operation_id": "ApiV1AuthMfaLoginLoginWithMfa",
+        "operation_id": "loginWithMfa",
         "parameters": null,
         "request_body": {
           "content": {
@@ -12660,7 +13024,11 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": ["null", "object", "array"],
+                      "type": [
+                        "null",
+                        "object",
+                        "array"
+                      ],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -12724,7 +13092,10 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": ["detail", "status_code"],
+                  "required": [
+                    "detail",
+                    "status_code"
+                  ],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -12746,8 +13117,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "LoginWithMfa",
-        "tags": null
+        "summary": "Complete Login With MFA",
+        "tags": [
+          "Multi-Factor Authentication"
+        ]
       },
       "put": null,
       "ref": null,
@@ -12766,9 +13139,9 @@
       "post": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Generates A Time-Based One-Time Password (TOTP) Provisioning URI For The Authenticated User. The URI Can Be Used To Configure An Authenticator App Such As Google Authenticator Or Authy.",
         "external_docs": null,
-        "operation_id": "ApiV1AuthMfaSetupSetupMfa",
+        "operation_id": "setupMfa",
         "parameters": null,
         "request_body": null,
         "responses": {
@@ -12792,8 +13165,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "SetupMfa",
-        "tags": null
+        "summary": "Setup MFA For User",
+        "tags": [
+          "Multi-Factor Authentication"
+        ]
       },
       "put": null,
       "ref": null,
@@ -12812,9 +13187,9 @@
       "post": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Confirms That Multi-Factor Authentication Has Been Successfully Configured By Validating A TOTP Code Generated By The User Authenticator App. On Success, Enables MFA For The User Account.",
         "external_docs": null,
-        "operation_id": "ApiV1AuthMfaVerifyVerifyMfa",
+        "operation_id": "verifyMfa",
         "parameters": null,
         "request_body": {
           "content": {
@@ -13055,7 +13430,11 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": ["null", "object", "array"],
+                      "type": [
+                        "null",
+                        "object",
+                        "array"
+                      ],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -13119,7 +13498,10 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": ["detail", "status_code"],
+                  "required": [
+                    "detail",
+                    "status_code"
+                  ],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -13141,8 +13523,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "VerifyMfa",
-        "tags": null
+        "summary": "Verify MFA Setup",
+        "tags": [
+          "Multi-Factor Authentication"
+        ]
       },
       "put": null,
       "ref": null,
@@ -13161,9 +13545,9 @@
       "post": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Exchanges A Valid Refresh Token From The Request Cookies For A New Access Token And Refresh Token Pair. Returns A 401 Unauthorized Error If The Refresh Token Is Missing, Expired, Or Invalid.",
         "external_docs": null,
-        "operation_id": "ApiV1AuthRefreshRefreshUserSession",
+        "operation_id": "refreshUserSession",
         "parameters": null,
         "request_body": null,
         "responses": {
@@ -13187,8 +13571,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "RefreshUserSession",
-        "tags": null
+        "summary": "Refresh Access Token",
+        "tags": [
+          "Authentication"
+        ]
       },
       "put": null,
       "ref": null,
@@ -13207,9 +13593,9 @@
       "post": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Creates A New User Account With The Provided Name And Password. On Success, Returns Authentication Tokens Via Both The Response Body And HttpOnly Cookies. Rate Limited To 5 Requests Per 60 Seconds Per IP Address.",
         "external_docs": null,
-        "operation_id": "ApiV1AuthRegisterRegisterUser",
+        "operation_id": "registerUser",
         "parameters": null,
         "request_body": {
           "content": {
@@ -13450,7 +13836,11 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": ["null", "object", "array"],
+                      "type": [
+                        "null",
+                        "object",
+                        "array"
+                      ],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -13514,7 +13904,10 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": ["detail", "status_code"],
+                  "required": [
+                    "detail",
+                    "status_code"
+                  ],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -13536,8 +13929,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "RegisterUser",
-        "tags": null
+        "summary": "Register A New User",
+        "tags": [
+          "Authentication"
+        ]
       },
       "put": null,
       "ref": null,
@@ -13551,9 +13946,9 @@
       "get": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Returns The Current Operational Status Of The Vocalis Service, Including The Application Name And A Health Indicator To Confirm The Backend Is Responsive.",
         "external_docs": null,
-        "operation_id": "ApiV1HealthHealthCheck",
+        "operation_id": "healthCheck",
         "parameters": null,
         "request_body": null,
         "responses": {
@@ -13577,8 +13972,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "HealthCheck",
-        "tags": null
+        "summary": "Service Health Check",
+        "tags": [
+          "Health"
+        ]
       },
       "head": null,
       "options": null,
@@ -13597,9 +13994,9 @@
       "get": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Queries All Registered Machine Learning Models And Returns A Readiness Snapshot Indicating Whether Each Model Is Loaded, Cached, And Ready For Inference Tasks.",
         "external_docs": null,
-        "operation_id": "ApiV1HealthModelsModelHealthCheck",
+        "operation_id": "modelHealthCheck",
         "parameters": null,
         "request_body": null,
         "responses": {
@@ -13623,8 +14020,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "ModelHealthCheck",
-        "tags": null
+        "summary": "Model Readiness Check",
+        "tags": [
+          "Health"
+        ]
       },
       "head": null,
       "options": null,
@@ -13643,9 +14042,9 @@
       "get": {
         "callbacks": null,
         "deprecated": false,
-        "description": null,
+        "description": "This Route Returns A Random Speech Target Text For Pronunciation Practice. If The Focus-Phonemes Query Parameter Is Provided, Returns A Target That Emphasizes Practice Of The Specified Phonemes. Falls Back To A Random Target If No Phoneme-Focused Match Is Found.",
         "external_docs": null,
-        "operation_id": "ApiV1TargetsCurrentGetCurrentTarget",
+        "operation_id": "getCurrentTarget",
         "parameters": [
           {
             "allow_empty_value": false,
@@ -14049,7 +14448,11 @@
                       "schema_not": null,
                       "then": null,
                       "title": null,
-                      "type": ["null", "object", "array"],
+                      "type": [
+                        "null",
+                        "object",
+                        "array"
+                      ],
                       "unevaluated_items": null,
                       "unevaluated_properties": null,
                       "unique_items": null,
@@ -14113,7 +14516,10 @@
                   },
                   "property_names": null,
                   "read_only": null,
-                  "required": ["detail", "status_code"],
+                  "required": [
+                    "detail",
+                    "status_code"
+                  ],
                   "schema_else": null,
                   "schema_if": null,
                   "schema_not": null,
@@ -14135,8 +14541,10 @@
         },
         "security": null,
         "servers": null,
-        "summary": "GetCurrentTarget",
-        "tags": null
+        "summary": "Get Current Speech Target",
+        "tags": [
+          "Target"
+        ]
       },
       "head": null,
       "options": null,

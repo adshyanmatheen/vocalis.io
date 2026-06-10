@@ -488,7 +488,7 @@ async def assessment_websocket_handler(
         )
         user_id = user.id
 
-        if assessment_rate_limiter.is_rate_limited(user_id=user_id):
+        if await assessment_rate_limiter.is_rate_limited(user_id=user_id):
             await socket.send_json(
                 AssessmentErrorEvent(
                     message="Rate limit exceeded. Maximum 10 assessments per minute.",
@@ -497,7 +497,7 @@ async def assessment_websocket_handler(
             await socket.close(code=1008, reason="Rate limited")
             return
 
-        assessment_rate_limiter.record_attempt(user_id=user_id)
+        await assessment_rate_limiter.record_attempt(user_id=user_id)
         session = await connection_manager.connect(
             websocket=socket,
             user_id=user_id,

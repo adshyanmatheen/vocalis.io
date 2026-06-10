@@ -15,6 +15,7 @@ from app.api.router import (
 from app.api.websockets.assessment import (
     assessment_websocket_handler,
 )
+from app.api.websockets.manager import connection_manager
 from app.core.config import (
     settings,
 )
@@ -50,6 +51,8 @@ init_sentry()
 
 
 async def _startup() -> None:
+    asyncio.create_task(connection_manager.run_pruning_loop())
+
     await asyncio.gather(
         initialize_database(),
         start_local_model_preload(),
@@ -85,7 +88,7 @@ app = Litestar(
         _startup,
     ],
     on_shutdown=[
-        create_database_backup_async,
-        dispose_database_engine,
+        lambda: asyncio.wait_for(create_database_backup_async(), timeout=30),
+        lambda: asyncio.wait_for(dispose_database_engine(), timeout=10),
     ],
 )

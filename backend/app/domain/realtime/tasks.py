@@ -83,6 +83,9 @@ async def run_realtime_inference(
     except Exception as error:
         logger.exception("Realtime inference task failed for user %d", user_id)
         session.inference_error = str(error)
+        import sentry_sdk
+
+        sentry_sdk.capture_exception()
 
     finally:
         session.inference_in_progress = False

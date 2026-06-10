@@ -127,6 +127,9 @@ async def _preload_local_models() -> None:
 
     except Exception:
         logger.exception("Local model preload failed")
+        import sentry_sdk
+
+        sentry_sdk.capture_exception()
         return
 
 
