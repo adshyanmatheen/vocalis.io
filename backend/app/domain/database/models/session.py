@@ -31,7 +31,7 @@ class Session(Base):
     )
 
     expires_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), nullable=False
+        DateTime(timezone=True), nullable=False, index=True
     )
 
     created_at: Mapped[datetime] = mapped_column(

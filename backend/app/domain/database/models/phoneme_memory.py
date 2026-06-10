@@ -7,6 +7,7 @@ from sqlalchemy import (
     DateTime,
     Float,
     ForeignKey,
+    Index,
     Integer,
     String,
     func,
@@ -21,6 +22,7 @@ from app.domain.database.base import Base
 
 class PhonemeMemory(Base):
     __tablename__ = "phoneme_memories"
+    __table_args__ = (Index("idx_phoneme_memory_user_phoneme", "user_id", "phoneme"),)
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
 

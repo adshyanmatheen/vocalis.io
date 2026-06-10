@@ -10,10 +10,7 @@ from app.schemas.responses.health import (
 )
 
 
-@get(
-    path="/health",
-    sync_to_thread=False,
-)
+@get(path="/health")
 def health_check() -> HealthResponse:
     return HealthResponse(
         status="online",
@@ -21,9 +18,6 @@ def health_check() -> HealthResponse:
     )
 
 
-@get(
-    path="/health/models",
-    sync_to_thread=False,
-)
+@get(path="/health/models")
 def model_health_check() -> ModelHealthResponse:
     return ModelHealthResponse.model_validate(get_model_readiness_snapshot())

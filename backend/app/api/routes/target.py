@@ -15,8 +15,8 @@ from app.schemas.responses.target import (
 target_service = TargetService()
 
 
-@get(path="/targets/current", sync_to_thread=False)
-def get_current_target(
+@get(path="/targets/current")
+async def get_current_target(
     focus_phonemes: FromQuery[str | None] = None,
 ) -> TargetTextResponse:
     phoneme_set = {

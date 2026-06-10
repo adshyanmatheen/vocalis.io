@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from datetime import UTC, datetime, timedelta
 
 from sqlalchemy.ext.asyncio import (
@@ -79,7 +80,7 @@ class AuthService:
             name=validated_name,
             username=username,
             avatar_url=generate_avatar_url(username),
-            password_hash=hash_password(validated_password),
+            password_hash=await asyncio.to_thread(hash_password, validated_password),
         )
 
         return await self.session.issue_authentication_result(
@@ -106,9 +107,8 @@ class AuthService:
         if user is None:
             raise UserNotFoundError("The User Account Does Not Exist.")
 
-        password_is_valid = verify_password(
-            password=payload.password,
-            password_hash=user.password_hash,
+        password_is_valid = await asyncio.to_thread(
+            verify_password, password=payload.password, password_hash=user.password_hash
         )
 
         if not password_is_valid:
