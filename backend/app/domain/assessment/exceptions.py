@@ -2,36 +2,36 @@ from __future__ import annotations
 
 
 class AssessmentError(Exception):
-    pass
+    """Base exception for all assessment domain errors."""
 
 
 class AudioProcessingError(AssessmentError):
-    pass
+    """Raised when assessment audio processing fails."""
 
 
 class TranscriptionError(AssessmentError):
-    pass
+    """Raised when speech transcription fails."""
 
 
 class WordAlignmentError(AssessmentError):
-    pass
+    """Raised when word-level alignment fails."""
 
 
 class PronunciationAnalysisError(AssessmentError):
-    pass
+    """Raised when pronunciation analysis fails."""
 
 
 class FeedbackGenerationError(AssessmentError):
-    pass
+    """Raised when assessment feedback generation fails."""
 
 
 class PersonalizationError(AssessmentError):
-    pass
+    """Raised when personalization during assessment fails."""
 
 
 class AssessmentPersistenceError(AssessmentError):
-    pass
+    """Raised when persisting assessment results fails."""
 
 
 class InvalidAssessmentPayloadError(AssessmentError):
-    pass
+    """Raised when the assessment request payload is invalid."""

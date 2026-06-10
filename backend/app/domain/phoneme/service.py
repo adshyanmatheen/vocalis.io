@@ -39,7 +39,7 @@ class PhonemeService:
             float(waveform.shape[0] / sample_rate) if sample_rate else 0.0
         )
 
-        inputs = model_bundle.processor(  # pyrefly: ignore
+        inputs: Any = model_bundle.processor(
             waveform,
             sampling_rate=sample_rate,
             return_tensors="pt",

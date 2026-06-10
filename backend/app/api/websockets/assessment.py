@@ -48,6 +48,7 @@ from app.domain.models import (
     model_readiness_error_message,
     models_are_ready,
 )
+from app.domain.phoneme.utils import extract_weak_phonemes
 from app.domain.realtime.persistence import (
     store_realtime_assessment,
 )
@@ -58,6 +59,7 @@ from app.domain.realtime.tasks import (
     process_realtime_window,
     schedule_realtime_inference,
 )
+from app.domain.utils import normalize_datetime
 
 logger = logging.getLogger(__name__)
 
@@ -199,8 +201,8 @@ async def handle_start_assessment(
     session.buffered_samples = 0
     session.received_samples = 0
     session.partial_transcript = ""
-    session.last_activity = datetime.now(UTC)
-    session.started_at = datetime.now(UTC)
+    session.last_activity = normalize_datetime(datetime.now(UTC))
+    session.started_at = normalize_datetime(datetime.now(UTC))
     session.processed_samples = 0
     session.last_sequence = None
     session.inference_in_progress = False
@@ -345,7 +347,7 @@ async def handle_audio_chunk(
     session.buffered_samples += appended_samples
     session.received_samples += appended_samples
     session.last_sequence = sequence
-    session.last_activity = datetime.now(UTC)
+    session.last_activity = normalize_datetime(datetime.now(UTC))
 
     capture_message_metadata(
         session=session,
@@ -429,8 +431,8 @@ async def handle_end_assessment(
             scoring_payload=scoring_payload,
             duration_seconds=duration_seconds,
         )
-        weak_phonemes = realtime_assessment_service.extract_weak_phonemes(
-            scoring_payload=scoring_payload,
+        weak_phonemes = extract_weak_phonemes(
+            phoneme_results=scoring_payload["phoneme_results"],
         )
 
         await asyncio.gather(

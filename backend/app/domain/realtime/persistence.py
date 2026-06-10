@@ -11,6 +11,7 @@ from app.api.websockets.models import (
 from app.domain.assessment.repository import (
     AssessmentRepository,
 )
+from app.domain.phoneme.utils import extract_weak_phonemes
 from app.domain.realtime.service import (
     realtime_assessment_service,
 )
@@ -46,8 +47,8 @@ async def store_realtime_assessment(
             "phoneme_results": msgspec.to_builtins(scoring_payload["phoneme_results"]),
             "word_scores": msgspec.to_builtins(scoring_payload["word_scores"]),
             "feedback_payload": feedback_payload,
-            "weak_phonemes": realtime_assessment_service.extract_weak_phonemes(
-                scoring_payload=scoring_payload,
+            "weak_phonemes": extract_weak_phonemes(
+                phoneme_results=scoring_payload["phoneme_results"],
             ),
         },
     )

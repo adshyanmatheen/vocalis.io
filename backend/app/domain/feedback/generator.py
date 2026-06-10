@@ -50,7 +50,7 @@ def get_groq_client() -> Groq:
     return Groq(api_key=settings.app.groq_api_key)
 
 
-def extract_weak_phonemes(
+def collect_weak_phoneme_feedback(
     scoring_payload: ScoringPayload, limit: int = DEFAULT_WEAK_PHONEME_LIMIT
 ) -> list[WeakPhonemeFeedback]:
 
@@ -182,7 +182,7 @@ def build_encouragement(performance_band: str) -> str:
 
 def build_fallback_feedback(*, scoring_payload: ScoringPayload) -> FeedbackPayload:
     performance_band = scoring_payload["performance_band"]
-    weak_phonemes = extract_weak_phonemes(scoring_payload)
+    weak_phonemes = collect_weak_phoneme_feedback(scoring_payload)
 
     return {
         "summary": build_summary(
@@ -199,7 +199,7 @@ def build_fallback_feedback(*, scoring_payload: ScoringPayload) -> FeedbackPaylo
 def build_feedback_context(
     *, target_text: str, scoring_payload: ScoringPayload
 ) -> dict:
-    weak_phonemes = extract_weak_phonemes(scoring_payload)
+    weak_phonemes = collect_weak_phoneme_feedback(scoring_payload)
     weak_words = extract_weak_words(scoring_payload)
     prioritized_phonemes = derive_prioritized_phonemes(weak_phonemes)
 

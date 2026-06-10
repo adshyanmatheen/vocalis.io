@@ -12,7 +12,9 @@ from app.domain.feedback.constants import (
     PHONEME_ARTICULATION_HINTS,
 )
 from app.domain.phoneme.models import ScoringPayload
+from app.domain.phoneme.scoring import performance_band_from_score
 from app.domain.phoneme.service import PhonemeService
+from app.domain.phoneme.utils import extract_weak_phonemes
 
 
 class RealtimeAssessmentService:
@@ -57,22 +59,13 @@ class RealtimeAssessmentService:
             sample_rate=sample_rate,
         )
 
-    def extract_weak_phonemes(self, *, scoring_payload: dict[str, Any]) -> list[str]:
-        return sorted(
-            {
-                result["expected_phoneme"]
-                for result in scoring_payload["phoneme_results"]
-                if result["phoneme_score"] < 0.6
-            }
-        )
-
     def build_partial_feedback(
         self, *, scoring_payload: dict[str, Any]
     ) -> dict[str, Any]:
         return {
             "overall_score": scoring_payload["overall_score"],
-            "weak_phonemes": self.extract_weak_phonemes(
-                scoring_payload=scoring_payload
+            "weak_phonemes": extract_weak_phonemes(
+                phoneme_results=scoring_payload["phoneme_results"]
             ),
             "word_scores": msgspec.to_builtins(scoring_payload["word_scores"]),
             "performance_band": scoring_payload["performance_band"],
@@ -286,7 +279,9 @@ class RealtimeAssessmentService:
     def build_completion_feedback(
         self, *, scoring_payload: dict[str, Any], duration_seconds: float
     ) -> dict[str, Any]:
-        weak_phonemes = self.extract_weak_phonemes(scoring_payload=scoring_payload)
+        weak_phonemes = extract_weak_phonemes(
+            phoneme_results=scoring_payload["phoneme_results"]
+        )
         phoneme_results = msgspec.to_builtins(scoring_payload["phoneme_results"])
         overall_score = float(scoring_payload["overall_score"])
         performance_band = str(scoring_payload["performance_band"])
@@ -385,23 +380,8 @@ class RealtimeAssessmentService:
             "phoneme_results": phoneme_results,
             "word_scores": word_scores,
             "overall_score": round(overall_score, 4),
-            "performance_band": self.performance_band_from_score(overall_score),
+            "performance_band": str(performance_band_from_score(overall_score)),
         }
-
-    def performance_band_from_score(self, score: float) -> str:
-        if score >= 0.90:
-            return "Excellent"
-
-        if score >= 0.75:
-            return "Strong"
-
-        if score >= 0.60:
-            return "On Track"
-
-        if score >= 0.40:
-            return "Needs More Practice"
-
-        return "Needs Careful Practice"
 
 
 realtime_assessment_service = RealtimeAssessmentService()

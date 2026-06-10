@@ -11,6 +11,7 @@ from app.domain.database.models.auth_attempt import AuthAttempt
 from app.domain.database.models.mfa_challenge import MFAChallenge
 from app.domain.database.models.session import Session
 from app.domain.database.models.user import User
+from app.domain.utils import normalize_datetime
 
 
 class AuthRepository:
@@ -59,10 +60,12 @@ class AuthRepository:
         database_session: AsyncSession,
         user_id: int,
         session_token: str,
-        expires_at,
+        expires_at: datetime,
     ) -> Session:
         session = Session(
-            user_id=user_id, session_token=session_token, expires_at=expires_at
+            user_id=user_id,
+            session_token=session_token,
+            expires_at=normalize_datetime(expires_at),
         )
 
         database_session.add(session)
@@ -95,7 +98,7 @@ class AuthRepository:
         expires_at: datetime,
     ) -> Session:
         session.session_token = session_token
-        session.expires_at = expires_at
+        session.expires_at = normalize_datetime(expires_at)
         database_session.add(session)
         await database_session.commit()
         await database_session.refresh(session)
@@ -143,7 +146,9 @@ class AuthRepository:
         expires_at: datetime,
     ) -> MFAChallenge:
         challenge = MFAChallenge(
-            user_id=user_id, token_hash=token_hash, expires_at=expires_at
+            user_id=user_id,
+            token_hash=token_hash,
+            expires_at=normalize_datetime(expires_at),
         )
 
         database_session.add(challenge)
@@ -168,7 +173,7 @@ class AuthRepository:
         challenge: MFAChallenge,
         used_at: datetime,
     ) -> MFAChallenge:
-        challenge.used_at = used_at
+        challenge.used_at = normalize_datetime(used_at)
 
         database_session.add(challenge)
         await database_session.commit()
@@ -182,6 +187,7 @@ class AuthRepository:
         database_session: AsyncSession,
         cutoff: datetime,
     ) -> None:
+        cutoff = normalize_datetime(cutoff)
         statement = delete(AuthAttempt).where(AuthAttempt.attempted_at < cutoff)
         await database_session.execute(statement)
         await database_session.commit()
@@ -193,6 +199,7 @@ class AuthRepository:
         identifier: str,
         cutoff: datetime,
     ) -> int:
+        cutoff = normalize_datetime(cutoff)
         statement = (
             select(func.count())
             .select_from(AuthAttempt)
@@ -209,7 +216,9 @@ class AuthRepository:
         identifier: str,
         attempted_at: datetime,
     ) -> AuthAttempt:
-        attempt = AuthAttempt(identifier=identifier, attempted_at=attempted_at)
+        attempt = AuthAttempt(
+            identifier=identifier, attempted_at=normalize_datetime(attempted_at)
+        )
         database_session.add(attempt)
         await database_session.commit()
         await database_session.refresh(attempt)

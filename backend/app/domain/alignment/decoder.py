@@ -1,3 +1,5 @@
+from typing import Any
+
 import numpy as np
 import torch
 
@@ -30,7 +32,7 @@ def perform_forced_alignment(
         normalized_text=normalized_target_text, vocabulary=alignment_bundle.vocabulary
     )
 
-    inputs = alignment_bundle.processor(  # pyrefly: ignore
+    inputs: Any = alignment_bundle.processor(
         processed_audio,
         sampling_rate=settings.app.sample_rate,
         return_tensors="pt",

@@ -2,28 +2,28 @@ from __future__ import annotations
 
 
 class FeedbackError(Exception):
-    pass
+    """Base exception for all feedback domain errors."""
 
 
 class FeedbackGenerationError(FeedbackError):
-    pass
+    """Raised when feedback text generation fails."""
 
 
 class FeedbackValidationError(FeedbackError):
-    pass
+    """Raised when generated feedback fails validation."""
 
 
 class PersonalizationError(FeedbackError):
-    pass
+    """Base exception for personalization-related errors."""
 
 
 class PersonalizationPersistenceError(PersonalizationError):
-    pass
+    """Raised when storing personalization data fails."""
 
 
 class PersonalizationAnalysisError(PersonalizationError):
-    pass
+    """Raised when personalization analysis fails."""
 
 
 class FeedbackServiceError(FeedbackError):
-    pass
+    """Raised when the feedback service encounters an unexpected error."""

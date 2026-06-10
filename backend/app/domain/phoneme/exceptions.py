@@ -30,5 +30,5 @@ class PronunciationScoringError(PhonemeError):
     """This Exception Is Raised When Pronunciation Confidence Or Severity Scoring Fails."""
 
 
-class PhonemeScoringError(Exception):
+class PhonemeScoringError(PhonemeError):
     """This Exception Is Raised When Pronunciation Scoring Logic, Performance Band Classification, Or Phoneme Severity Evaluation Fails."""

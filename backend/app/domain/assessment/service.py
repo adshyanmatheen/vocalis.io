@@ -30,6 +30,7 @@ from app.domain.phoneme.models import (
 from app.domain.phoneme.service import (
     PhonemeService,
 )
+from app.domain.phoneme.utils import extract_weak_phonemes
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +71,7 @@ class AssessmentService:
             phoneme_history=phoneme_results,
         )
 
-        weak_phonemes = self.extract_weak_phonemes(phoneme_results=phoneme_results)
+        weak_phonemes = extract_weak_phonemes(phoneme_results=phoneme_results)
 
         persistence_payload = self.build_persistence_payload(
             assessment_request=assessment_request,
@@ -100,20 +101,6 @@ class AssessmentService:
             "feedback": (feedback_response["feedback"]),
             "personalization": (feedback_response["personalization"]),
         }
-
-    def extract_weak_phonemes(
-        self, *, phoneme_results: list[ScoredPhonemeResult]
-    ) -> list[str]:
-
-        weak_phonemes = sorted(
-            {
-                result["expected_phoneme"]
-                for result in phoneme_results
-                if (result["phoneme_score"] < 0.6)
-            }
-        )
-
-        return weak_phonemes
 
     def build_persistence_payload(
         self,

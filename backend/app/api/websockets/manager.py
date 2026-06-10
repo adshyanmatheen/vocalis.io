@@ -11,6 +11,7 @@ from litestar import WebSocket
 from app.api.websockets.models import (
     RealtimeAssessmentSession,
 )
+from app.domain.utils import normalize_datetime
 
 logger = logging.getLogger(__name__)
 
@@ -33,8 +34,8 @@ class ConnectionManager:
             buffered_samples=0,
             received_samples=0,
             partial_transcript="",
-            last_activity=datetime.now(UTC),
-            started_at=datetime.now(UTC),
+            last_activity=normalize_datetime(datetime.now(UTC)),
+            started_at=normalize_datetime(datetime.now(UTC)),
             processed_samples=0,
             last_sequence=None,
             inference_in_progress=False,
