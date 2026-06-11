@@ -1,14 +1,16 @@
-## Vocalis.io: Your Adaptive Explainable AI-Driven Pronunciation Training Companion
+## Vocalis.io: Your Adaptive Explainable AI Pronunciation Training Companion
 
 <br />
+
+<hr>
 
 ### Getting Started
 
-<br />
-
 The Following Instructions Are To Clone And Configure An Instance Of Vocalis.io Within Your Local Environment.
 
+
 #### The Pre-Requisites Before Cloning And Configuring Vocalis.io
+
 
 This Technology Is Required For Configuring An Instance Of Vocalis.io Within Your Local Environment.
 
@@ -57,6 +59,10 @@ These Instructions Are Required For Configuring An Instance Of Vocalis.io Within
     ```bash
     docker compose up --build
     ```
+
+<br />
+
+<hr>
 
 ### LICENSE
 
