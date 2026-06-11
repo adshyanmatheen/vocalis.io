@@ -58,7 +58,7 @@ class AppSettings(BaseSettings):
 
     groq_api_key: str | None = Field(default=None)
 
-    groq_model: str = Field(default="llama-3.1-8b-instant")
+    groq_model: str = Field(default="llama-4-scout-17b-16e-instruct")
 
     device: Literal[
         "cpu",

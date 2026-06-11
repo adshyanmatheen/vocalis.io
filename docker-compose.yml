@@ -19,7 +19,7 @@ services:
       - HUGGINGFACE_CACHE_DIR=.cache/huggingface
       - USE_GROQ=${USE_GROQ:-false}
       - GROQ_API_KEY=${GROQ_API_KEY:-}
-      - GROQ_MODEL=llama-3.1-8b-instant
+       - GROQ_MODEL=llama-4-scout-17b-16e-instruct
       - DEVICE=cpu
       - ALIGNMENT_QUANTIZATION_BACKEND=none
       - SAMPLE_RATE=16000
