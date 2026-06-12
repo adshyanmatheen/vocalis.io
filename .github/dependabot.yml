@@ -1,0 +1,102 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Colombo"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "frontend"
+    versioning-strategy: increase
+    commit-message:
+      prefix: "chore(frontend)"
+      include: "scope"
+    groups:
+      react-ecosystem:
+        patterns:
+          - "react*"
+          - "@types/react*"
+          - "react-dom*"
+      nextjs:
+        patterns:
+          - "next*"
+          - "@next/*"
+          - "eslint-config-next"
+      ui-framework:
+        patterns:
+          - "@base-ui/*"
+          - "class-variance-authority"
+          - "clsx"
+          - "tailwind-merge"
+      testing:
+        patterns:
+          - "vitest*"
+          - "@testing-library/*"
+          - "jsdom"
+
+  - package-ecosystem: "pip"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Colombo"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "backend"
+    commit-message:
+      prefix: "chore(backend)"
+      include: "scope"
+    groups:
+      ml-framework:
+        patterns:
+          - "torch*"
+          - "transformers*"
+          - "torchao*"
+          - "numpy*"
+          - "scipy*"
+          - "soundfile*"
+      web-framework:
+        patterns:
+          - "litestar*"
+          - "uvicorn*"
+          - "pydantic*"
+          - "sentry-sdk"
+          - "python-json-logger"
+      database:
+        patterns:
+          - "aiosqlite"
+          - "alembic"
+          - "sqlalchemy*"
+          - "greenlet"
+      dev-tools:
+        patterns:
+          - "pytest*"
+          - "ruff*"
+          - "httpx*"
+          - "pyrefly*"
+
+  - package-ecosystem: "docker"
+    directory: "/backend"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "docker"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "ci"
+    groups:
+      actions:
+        patterns:
+          - "*"
