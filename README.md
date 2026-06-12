@@ -3,9 +3,9 @@
 <img src="assets/Vocalis.io.gif" width="100%" alt="Vocalis.io">
 
 <p align="center">
-  <img src="https://shieldcn.dev/github/ci/vercel/next.js.svg?variant=outline&mode=light&size=xs&animate=glow" alt="GitHub CI" />
+  <img src="https://shieldcn.dev/github/ci/vercel/next.js.svg?variant=outline&mode=light&size=xs&animate=shimmer" alt="GitHub CI" />
   &nbsp;
-  <img src="https://shieldcn.dev/badge/made%20with-%E2%9D%A4-red.svg?variant=outline&size=xs&mode=light" alt="Made with Love" />
+  <img src="https://shieldcn.dev/badge/made%20with-%E2%9D%A4-red.svg?variant=outline&size=xs&mode=light&animate=shimmer" alt="Made with Love" />
 </p>
 
 Vocalis is an adaptive, explainable AI-driven pronunciation training companion designed specifically for South Asian English speakers. Unlike traditional Computer-Assisted Pronunciation Training (CAPT) that provide opaque scores or simple "correct/incorrect" feedback, Vocalis leverages [`wav2vec2-large-960h`](https://huggingface.co/facebook/wav2vec2-large-960h) acoustic model finetuned on the [`Svarah`](https://huggingface.co/datasets/ai4bharat/Svarah) dataset to perform frame-level phoneme alignment directly from mono 16KHz speech waveforms. The aligned phoneme sequences are analyzed by a custom weighted scoring engine that models pronunciation deviations as assigned errors. These phonological error vectors are then transformed into human-interpretable articulatory explanations by a Groq-hosted [`Llama-4-Scout-17B-16E-Instruct.`](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct)
@@ -29,7 +29,7 @@ During the benchmarking process, the finetuned [`wav2vec2-large-960h`](https://h
   </thead>
   <tbody>
     <tr>
-      <td>Standard Wav2Vec2</td>
+      <td>Baseline Wav2Vec2</td>
       <td>0.5247</td>
       <td>0.2567</td>
       <td>0.5607</td>
@@ -45,7 +45,7 @@ During the benchmarking process, the finetuned [`wav2vec2-large-960h`](https://h
       <td>0.7089</td>
     </tr>
     <tr>
-      <td>Distil-Whisper</td>
+      <td>Distil-Whisper-Large</td>
       <td>0.0918</td>
       <td>0.0416</td>
       <td>0.9225</td>
