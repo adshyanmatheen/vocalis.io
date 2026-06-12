@@ -10,11 +10,11 @@ dependencies = [
     "g2p-en>=2.1.0",
     "greenlet>=3.5.1",
     "groq>=1.4.0",
-    "litestar[standard]>=2.22.0",
-    "sentry-sdk>=2.30.0",
+    "litestar[standard]>=2.24.0",
+    "sentry-sdk>=2.62.0",
     "numpy>=2.4.6",
     "phonemizer>=3.3.0",
-    "python-json-logger>=3.3.0",
+    "python-json-logger>=4.1.0",
     "pydantic-settings>=2.14.1",
     "pyjwt>=2.13.0",
     "pyotp>=2.9.0",
@@ -25,7 +25,7 @@ dependencies = [
     "torch>=2.12.0",
     "torchao>=0.17.0",
     "transformers>=5.9.0",
-    "uvicorn>=0.47.0",
+    "uvicorn>=0.49.0",
 ]
 
 [dependency-groups]
