@@ -45,20 +45,20 @@ During the benchmarking process, the finetuned [`wav2vec2-large-960h`](https://h
       <td>0.7089</td>
     </tr>
     <tr>
-      <td>Distil-Whisper-Large</td>
+      <td>Distilled Whisper-Large</td>
       <td>0.0918</td>
       <td>0.0416</td>
       <td>0.9225</td>
       <td>0.9266</td>
       <td>0.9246</td>
     </tr>
-    <tr>
+    <tr bgcolor="#90D5FF"> 
       <td><strong>Fine-Tuned Wav2Vec2</strong></td>
-      <td>0.1584</td>
-      <td>0.0547</td>
-      <td>0.7900</td>
-      <td>0.7751</td>
-      <td>0.7824</td>
+      <td><strong>0.1584</strong></td>
+      <td><strong>0.0547</strong></td>
+      <td><strong>0.7900</strong></td>
+      <td><strong>0.7751</strong></td>
+      <td><strong>0.7824</strong></td>
     </tr>
   </tbody>
 </table>
@@ -69,13 +69,13 @@ During the benchmarking process, the finetuned [`wav2vec2-large-960h`](https://h
 
 ### Getting Started
 
-The Following Instructions Are To Clone And Configure An Instance Of Vocalis.io Within Your Local Environment.
+The following instructions are to clone and configure an instance of Vocalis.io within your local environment.
 
 #### The Pre-Requisites Before Cloning And Configuring Vocalis.io
 
-This Technology Is Required For Configuring An Instance Of Vocalis.io Within Your Local Environment.
+This technology is required for configuring an instance of Vocalis.io within your local environment.
 
-1. Install The Docker Containerization Platform
+1. Install the Docker containerization platform
 
     ```bash
     curl -fsSL https://get.docker.com | sh
@@ -83,27 +83,27 @@ This Technology Is Required For Configuring An Instance Of Vocalis.io Within You
 
 #### The Instructions For Cloning And Configuring Vocalis.io
 
-These Instructions Are Required For Configuring An Instance Of Vocalis.io Within Your Local Environment.
+These instructions are required for configuring an instance of Vocalis.io within your local environment.
 
-1. Clone The GitHub Repository Using The GitHub CLI
+1. Clone the GitHub repository using the GitHub CLI
 
     ```bash
     gh repo clone adshyanmatheen/vocalis.io 
     ```
 
-2. Navigate To The Cloned Repository
+2. Navigate to the cloned repository
 
     ```bash
     cd vocalis.io
     ```
 
-3. Copy The Backend `.env.example` File And Create An `.env` File Based On The Example File
+3. Copy the backend `.env.example` file and create an `.env` file based on the example file
 
     ```bash
     cp backend/.env.example backend/.env
     ```
 
-4. Edit The Newly Created Backend `.env` File And Enter Your Configuration Values
+4. Edit the newly created backend `.env` file and enter your configuration values
 
     ```ini
     DATABASE_URL="Enter Your Database URL Here"
@@ -113,7 +113,7 @@ These Instructions Are Required For Configuring An Instance Of Vocalis.io Within
     HUGGINGFACE_TOKEN="Enter Your Hugging Face Token Here"
     ```
 
-5. Build And Start The Virtual Containerized Instance Of Vocalis.io Using Docker Compose
+5. Build and start the virtual containerized instance Oo Vocalis.io using 'Docker Compose'
 
     ```bash
     docker compose up --build
@@ -123,4 +123,4 @@ These Instructions Are Required For Configuring An Instance Of Vocalis.io Within
 
 ### LICENSE
 
-Vocalis.io Is Distributed Under The [MIT LICENSE](https://opensource.org/license/mit). See `LICENSE` For More Information.
+Vocalis.io is distributed under the [MIT LICENSE](https://opensource.org/license/mit). See `LICENSE` for more information.
