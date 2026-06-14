@@ -16,7 +16,7 @@
   "dependencies": {
     "@base-ui/react": "^1.5.0",
     "@sentry/nextjs": "^10",
-    "ai": "^6.0.194",
+    "ai": "^6.0.205",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "input-otp": "^1.4.2",
