@@ -20,7 +20,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "input-otp": "^1.4.2",
-    "lucide-react": "^1.17.0",
+    "lucide-react": "^1.18.0",
     "media-chrome": "^4.19.2",
     "motion": "^12.40.0",
     "next": "16.2.9",
