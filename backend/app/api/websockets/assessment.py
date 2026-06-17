@@ -557,7 +557,7 @@ async def assessment_websocket_handler(
             )
 
     except WebSocketDisconnect:
-        pass
+        logger.debug("WebSocket disconnected for user_id=%s", user_id)
 
     finally:
         if user_id is not None:
