@@ -5,10 +5,13 @@ from functools import lru_cache
 
 from g2p_en import G2p
 
+from app.domain.phoneme._nltk_patch import install as _install_nltk_patch
 from app.domain.phoneme.constants import PHONEME_MODEL_WARMUP_TEXT
 from app.domain.phoneme.exceptions import PhonemizationError
 
 logger = logging.getLogger(__name__)
+
+_install_nltk_patch()
 
 
 def resource_exists(nltk_module, resource_paths: tuple[str, ...]) -> bool:
