@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Linting And Formatting The Code Required For The Frontend
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
         with:
           bun-version: latest
 
@@ -30,9 +30,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Linting And Formatting The Code Required For The Backend
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869468d89d02405 # v6
         with:
           python-version: '3.14'
 
@@ -52,9 +52,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Checking The Validity And Safety Of The Types Required For The Frontend Using The TypeScript Compiler (tsc)
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
         with:
           bun-version: latest
 
@@ -68,9 +68,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Testing The Unit Tests Written Required To Test The Functionality Of The Frontend Using Vitest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
         with:
           bun-version: latest
 
@@ -84,9 +84,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Testing The Unit Tests Written Required To Test The Functionality Of The Backend Using PyTest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869468d89d02405 # v6
         with:
           python-version: '3.14'
 
