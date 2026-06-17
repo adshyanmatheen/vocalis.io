@@ -26,7 +26,9 @@ def install() -> None:
         resource_name: str, paths: list[str] | None = None
     ) -> nltk.data.PathPointer:
         decoded = url2pathname(resource_name)
-        if decoded != resource_name and nltk.data._UNSAFE_NO_PROTOCOL_RE.search(decoded):
+        if decoded != resource_name and nltk.data._UNSAFE_NO_PROTOCOL_RE.search(
+            decoded
+        ):
             raise ValueError(
                 f"Unsafe resource path (detected after URL decoding): {resource_name!r}"
             )
@@ -39,4 +41,3 @@ def install() -> None:
     logger.info(
         "NLTK security patches applied: URL-decode-before-check fix + ENFORCE=True"
     )
-
