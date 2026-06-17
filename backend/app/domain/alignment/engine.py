@@ -12,9 +12,8 @@ from app.domain.alignment.exceptions import (
     QuantizationError,
 )
 from app.domain.alignment.models import AlignmentModelBundle
-from app.domain.alignment.registry import (
-    _alignment_model_registry,
-)
+
+_alignment_model_registry: AlignmentModelBundle | None = None
 
 logger = logging.getLogger(__name__)
 
