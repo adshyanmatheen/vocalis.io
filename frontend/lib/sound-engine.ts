@@ -27,7 +27,7 @@ export async function decodeAudioData(dataUri: string): Promise<AudioBuffer> {
     bufferCache.set(dataUri, audioBuffer)
     return audioBuffer
   } catch (error) {
-    logger.warn('Failed to decode audio data:', error)
+    logger.warn('Failed to decode audio data')
     throw error
   }
 }
