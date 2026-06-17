@@ -1,5 +1,8 @@
 name: The Vocalis.io GitHub Continuous Integration (CI) & Continuous Deployment (CD) Pipeline
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: [main, develop]
