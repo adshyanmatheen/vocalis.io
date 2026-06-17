@@ -10,10 +10,9 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 
 export const logger = {
   error: (message: string, error?: unknown) => {
-    const safe = message.replace(/[\n\r\f\t\v]/g, '_')
+    const safe = message.replace(/\n|\r/g, '')
     if (isDevelopment) {
       console.error(safe)
-      if (error) console.error(error)
     } else if (error) {
       Sentry.captureException(error, { level: 'error' })
     } else {
@@ -21,25 +20,24 @@ export const logger = {
     }
   },
 
-  warn: (message: string, error?: unknown) => {
-    const safe = message.replace(/[\n\r\f\t\v]/g, '_')
+  warn: (message: string) => {
+    const safe = message.replace(/\n|\r/g, '')
     if (isDevelopment) {
       console.warn(safe)
-      if (error) console.warn(error)
     } else {
       Sentry.addBreadcrumb({ message: safe, level: 'warning' })
     }
   },
 
-  info: (message: string, data?: unknown) => {
+  info: (message: string) => {
     if (isDevelopment) {
-      console.info(message.replace(/[\n\r\f\t\v]/g, '_'), data)
+      console.info(message.replace(/\n|\r/g, ''))
     }
   },
 
-  debug: (message: string, data?: unknown) => {
+  debug: (message: string) => {
     if (isDevelopment) {
-      console.debug(message.replace(/[\n\r\f\t\v]/g, '_'), data)
+      console.debug(message.replace(/\n|\r/g, ''))
     }
   },
 }
