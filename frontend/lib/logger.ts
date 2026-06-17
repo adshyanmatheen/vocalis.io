@@ -8,15 +8,12 @@ import * as Sentry from '@sentry/nextjs'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
-function sanitize(message: string): string {
-  return message.replace(/[\n\r\f\t\v]/g, '_')
-}
-
 export const logger = {
   error: (message: string, error?: unknown) => {
-    const safe = sanitize(message)
+    const safe = message.replace(/[\n\r\f\t\v]/g, '_')
     if (isDevelopment) {
-      console.error(safe, error)
+      console.error(safe)
+      if (error) console.error(error)
     } else if (error) {
       Sentry.captureException(error, { level: 'error' })
     } else {
@@ -25,9 +22,10 @@ export const logger = {
   },
 
   warn: (message: string, error?: unknown) => {
-    const safe = sanitize(message)
+    const safe = message.replace(/[\n\r\f\t\v]/g, '_')
     if (isDevelopment) {
-      console.warn(safe, error)
+      console.warn(safe)
+      if (error) console.warn(error)
     } else {
       Sentry.addBreadcrumb({ message: safe, level: 'warning' })
     }
@@ -35,13 +33,13 @@ export const logger = {
 
   info: (message: string, data?: unknown) => {
     if (isDevelopment) {
-      console.info(sanitize(message), data)
+      console.info(message.replace(/[\n\r\f\t\v]/g, '_'), data)
     }
   },
 
   debug: (message: string, data?: unknown) => {
     if (isDevelopment) {
-      console.debug(sanitize(message), data)
+      console.debug(message.replace(/[\n\r\f\t\v]/g, '_'), data)
     }
   },
 }
