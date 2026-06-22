@@ -14,7 +14,7 @@
     "format:check": "bunx prettier . --check"
   },
   "dependencies": {
-    "@base-ui/react": "^1.5.0",
+    "@base-ui/react": "^1.6.0",
     "@sentry/nextjs": "^10",
     "ai": "^6.0.205",
     "class-variance-authority": "^0.7.1",
