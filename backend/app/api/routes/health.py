@@ -56,6 +56,7 @@ async def ready_check() -> Response[ReadyResponse]:
     try:
         async with database_engine.connect() as conn:
             from sqlalchemy import text as sa_text
+
             await conn.execute(sa_text("SELECT 1"))
             db_ok = True
     except Exception as exc:

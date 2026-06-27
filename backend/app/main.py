@@ -21,7 +21,9 @@ from app.core.config import (
     settings,
 )
 from app.core.csrf import create_csrf_middleware
+from app.core.idempotency import create_idempotency_middleware
 from app.core.logging import configure_logging
+from app.core.metrics import create_metrics_middleware, metrics_endpoint
 from app.core.observability import create_request_observability_middleware
 from app.core.rate_limit_middleware import RateLimitHeadersMiddleware
 from app.core.redis import redis_client
@@ -99,6 +101,7 @@ app = Litestar(
         [
             *routes,
             assessment_websocket_handler,
+            metrics_endpoint,
         ]
     ),
     debug=settings.app.debug,
@@ -118,6 +121,8 @@ app = Litestar(
         DefineMiddleware(create_sentry_middleware),
         DefineMiddleware(create_security_headers_middleware),
         DefineMiddleware(create_request_observability_middleware),
+        DefineMiddleware(create_metrics_middleware),
+        DefineMiddleware(create_idempotency_middleware),
         DefineMiddleware(RateLimitHeadersMiddleware),
     ],
     on_startup=[
