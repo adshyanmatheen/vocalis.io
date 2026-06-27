@@ -36,6 +36,15 @@ class RedisClient:
             self._client = None
             self._connected = False
 
+    async def ping(self) -> bool:
+        if self._client is None:
+            return False
+        try:
+            await self._client.ping()
+            return True
+        except Exception:
+            return False
+
     async def disconnect(self) -> None:
         if self._client is not None:
             try:

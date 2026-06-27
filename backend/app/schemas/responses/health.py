@@ -26,3 +26,15 @@ class ModelHealthResponse(Struct, kw_only=True):
     preload_task_status: str
     realtime_inference_timeout_seconds: float
     models: list[ModelHealthItemResponse]
+
+
+class ReadyCheckDetail(Struct, kw_only=True):
+    status: str
+    error: str | None = None
+
+
+class ReadyResponse(Struct, kw_only=True):
+    ready: bool
+    database: ReadyCheckDetail
+    redis: ReadyCheckDetail
+    models: ReadyCheckDetail
