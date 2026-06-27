@@ -80,7 +80,7 @@ class RedisClient:
         try:
             await self._client.expire(key, seconds)
         except Exception:
-            pass
+            logger.exception("Redis expire failed for key %s", key)
 
     async def incr(self, key: str) -> int:
         if self._client is None:
