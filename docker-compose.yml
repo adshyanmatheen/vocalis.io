@@ -74,7 +74,7 @@ services:
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/api/v1/health"]
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/api/v1/ready"]
       interval: 10s
       timeout: 5s
       retries: 5
