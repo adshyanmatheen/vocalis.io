@@ -15,9 +15,7 @@ const SparkleContext = createContext<SparkleContextValue | null>(null)
 export function SparkleProvider({ children }: { children: React.ReactNode }) {
   const [sparkle, setSparkle] = useState(true)
   return (
-    <SparkleContext.Provider value={{ sparkle, setSparkle }}>
-      {children}
-    </SparkleContext.Provider>
+    <SparkleContext.Provider value={{ sparkle, setSparkle }}>{children}</SparkleContext.Provider>
   )
 }
 
