@@ -10,7 +10,7 @@ dependencies = [
     "redis[hiredis]>=5.3.0",
     "g2p-en>=2.1.0",
     "greenlet>=3.5.1",
-    "groq>=1.4.0",
+    "groq>=1.5.0",
     "litestar[standard]>=2.24.0",
     "nltk",
     "sentry-sdk>=2.63.0",
