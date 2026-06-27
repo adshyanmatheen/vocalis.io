@@ -74,7 +74,10 @@ async def ready_check() -> Response[ReadyResponse]:
             database=ReadyCheckDetail(
                 status="healthy" if db_ok else "unhealthy", error=db_error
             ),
-            redis=ReadyCheckDetail(status="healthy" if redis_ok else "unhealthy"),
+            redis=ReadyCheckDetail(
+                status="healthy" if redis_ok else "unhealthy",
+                error=None if redis_ok else "Redis ping failed",
+            ),
             models=ReadyCheckDetail(
                 status="healthy" if models_ok else "unhealthy", error=models_error
             ),
