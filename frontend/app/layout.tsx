@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme-provider'
 import IntroLoader from '@/components/intro-loader'
 import { AuthProvider } from '@/components/auth-provider'
+import { SparkleProvider } from '@/lib/page-layouts'
 
 const nunitoSans = Nunito_Sans({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -44,7 +45,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <AuthProvider>
-            <IntroLoader>{children}</IntroLoader>
+            <SparkleProvider>
+              <IntroLoader>{children}</IntroLoader>
+            </SparkleProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

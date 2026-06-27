@@ -1,7 +1,7 @@
 'use client'
 
 import CountUp from '@/components/CountUp'
-import DotField from '@/components/DotField'
+import { PageBackground } from '@/lib/page-layouts'
 import {
   AudioPlayer,
   AudioPlayerControlBar,
@@ -568,21 +568,7 @@ export default function Home() {
 
   return (
     <main className={cn('relative', assessmentResult ? 'min-h-svh' : 'h-svh overflow-hidden')}>
-      <div className="fixed inset-0 -z-10">
-        <DotField
-          dotRadius={1.0}
-          dotSpacing={22}
-          cursorRadius={200}
-          cursorForce={0}
-          bulgeOnly={false}
-          bulgeStrength={0}
-          glowRadius={210}
-          sparkle
-          waveAmplitude={0}
-          gradientFrom="#cbcbcb"
-          gradientTo="#cbcbcb"
-        />
-      </div>
+      <PageBackground />
       <Link
         href="/account"
         aria-label="Open account"
@@ -802,7 +788,7 @@ export default function Home() {
           </div>
 
           {assessmentResult ? (
-            <div className="w-full -mt-1 sm: -mt-1">
+            <div className="w-full -mt-1 sm:-mt-1">
               <motion.section
                 className="-mt-px w-full border border-gray-200/20 bg-[#000000] px-5 py-10 pb-14 text-center sm:px-12 sm:py-12"
                 aria-labelledby="assessment-results-heading"

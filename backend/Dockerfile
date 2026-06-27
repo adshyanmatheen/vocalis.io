@@ -37,6 +37,7 @@ RUN apt-get update \
         ca-certificates \
         curl \
         libsndfile1 \
+        postgresql-client-16 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=dependencies /app/.venv /app/.venv

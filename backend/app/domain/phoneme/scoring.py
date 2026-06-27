@@ -110,12 +110,10 @@ def compute_phoneme_score(
     *, confidence_score: float, severity_score: float, importance_weight: float
 ) -> float:
 
-    base_score = max(
-        0.0, confidence_score * (1.0 - (PHONEME_SEVERITY_WEIGHT * severity_score))
+    return max(
+        0.0,
+        min(1.0, confidence_score * (1.0 - (PHONEME_SEVERITY_WEIGHT * severity_score))),
     )
-    weighted_score = base_score * importance_weight
-
-    return min(1.0, weighted_score)
 
 
 def performance_band_from_score(score: float) -> PerformanceBand:

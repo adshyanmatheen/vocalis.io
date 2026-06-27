@@ -2,6 +2,7 @@ from __future__ import annotations
 
 
 def import_database_models() -> None:
+    from app.domain.database.models import audit_log as audit_log
     from app.domain.database.models import auth_attempt as auth_attempt
     from app.domain.database.models import mfa_challenge as mfa_challenge
     from app.domain.database.models import phoneme_memory as phoneme_memory

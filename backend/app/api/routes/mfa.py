@@ -3,6 +3,7 @@ from __future__ import annotations
 from litestar import (
     post,
 )
+from litestar.connection import Request
 from litestar.exceptions import (
     ClientException,
     NotAuthorizedException,
@@ -13,6 +14,7 @@ from sqlalchemy.ext.asyncio import (
 )
 
 from app.api.routes.auth_cookies import set_auth_cookies
+from app.domain.audit.service import log_audit_event
 from app.domain.auth.exceptions import (
     AuthenticationError,
     InvalidMFAChallengeError,
@@ -49,6 +51,7 @@ mfa = MFAService()
     tags=["Multi-Factor Authentication"],
 )
 async def setup_mfa(
+    request: Request,
     database_session: AsyncSession,
     authenticated_user: User,
 ) -> MFASetupResponse:
@@ -60,6 +63,16 @@ async def setup_mfa(
 
     except AuthenticationError as error:
         raise (ClientException(str(error))) from error
+
+    await log_audit_event(
+        database_session=database_session,
+        action="mfa.setup",
+        actor_id=authenticated_user.id,
+        resource_type="mfa",
+        resource_id=authenticated_user.id,
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
+    )
 
     return MFASetupResponse(
         provisioning_uri=setup_result.provisioning_uri,
@@ -75,6 +88,7 @@ async def setup_mfa(
     tags=["Multi-Factor Authentication"],
 )
 async def verify_mfa(
+    request: Request,
     data: MFAVerifyRequest,
     database_session: AsyncSession,
     authenticated_user: User,
@@ -92,6 +106,17 @@ async def verify_mfa(
     except AuthenticationError as error:
         raise (ClientException(str(error))) from error
 
+    await log_audit_event(
+        database_session=database_session,
+        action="mfa.verify",
+        actor_id=authenticated_user.id,
+        resource_type="mfa",
+        resource_id=authenticated_user.id,
+        details={"mfa_enabled": True},
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
+    )
+
     return MFAVerifyResponse(
         success=True,
         mfa_enabled=True,
@@ -106,6 +131,7 @@ async def verify_mfa(
     tags=["Multi-Factor Authentication"],
 )
 async def login_with_mfa(
+    request: Request,
     data: MFALoginRequest,
     database_session: AsyncSession,
 ) -> Response[MFALoginResponse]:
@@ -142,6 +168,16 @@ async def login_with_mfa(
         refresh_token=authentication_result.refresh_token,
     )
 
+    await log_audit_event(
+        database_session=database_session,
+        action="mfa.login",
+        actor_id=authentication_result.user.id,
+        resource_type="mfa",
+        resource_id=authentication_result.user.id,
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
+    )
+
     return response
 
 
@@ -153,6 +189,7 @@ async def login_with_mfa(
     tags=["Multi-Factor Authentication"],
 )
 async def disable_mfa(
+    request: Request,
     data: MFADisableRequest,
     database_session: AsyncSession,
     authenticated_user: User,
@@ -169,6 +206,17 @@ async def disable_mfa(
 
     except AuthenticationError as error:
         raise (ClientException(str(error))) from error
+
+    await log_audit_event(
+        database_session=database_session,
+        action="mfa.disable",
+        actor_id=authenticated_user.id,
+        resource_type="mfa",
+        resource_id=authenticated_user.id,
+        details={"mfa_enabled": False},
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
+    )
 
     return MFAVerifyResponse(
         success=True,

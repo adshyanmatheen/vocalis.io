@@ -195,6 +195,20 @@ async def handle_start_assessment(
         await send_error(user_id=user_id, message=error_message)
         return
 
+    if await assessment_rate_limiter.is_rate_limited(user_id=user_id):
+        error_message = "Rate limit exceeded. Maximum 10 assessments per minute."
+        capture_message_metadata(
+            session=session,
+            message=message,
+            validation_status="valid",
+            processing_status="rejected",
+            error_message=error_message,
+        )
+        await send_error(user_id=user_id, message=error_message)
+        return
+
+    await assessment_rate_limiter.record_attempt(user_id=user_id)
+
     session.target_text = normalized_target_text
     session.sample_rate = sample_rate
     session.audio_buffer.clear()
@@ -462,7 +476,6 @@ async def handle_end_assessment(
 
     finally:
         session.audio_buffer.clear()
-        connection_manager.disconnect(user_id=user_id)
 
 
 async def realtime_assessment_service_process(
@@ -488,16 +501,6 @@ async def assessment_websocket_handler(
         )
         user_id = user.id
 
-        if await assessment_rate_limiter.is_rate_limited(user_id=user_id):
-            await socket.send_json(
-                AssessmentErrorEvent(
-                    message="Rate limit exceeded. Maximum 10 assessments per minute.",
-                )
-            )
-            await socket.close(code=1008, reason="Rate limited")
-            return
-
-        await assessment_rate_limiter.record_attempt(user_id=user_id)
         session = await connection_manager.connect(
             websocket=socket,
             user_id=user_id,

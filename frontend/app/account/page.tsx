@@ -1,7 +1,7 @@
 'use client'
 
 import CountUp from '@/components/CountUp'
-import DotField from '@/components/DotField'
+import { PageBackground } from '@/lib/page-layouts'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { ArrowLeftIcon, type ArrowLeftIconHandle } from '@/components/ui/arrow-left'
 import { Button } from '@/components/ui/button'
@@ -274,21 +274,7 @@ export default function Account() {
 
   return (
     <main className="relative min-h-svh overflow-hidden">
-      <div className="fixed inset-0 -z-10">
-        <DotField
-          dotRadius={1.0}
-          dotSpacing={22}
-          cursorRadius={200}
-          cursorForce={0}
-          bulgeOnly={false}
-          bulgeStrength={0}
-          glowRadius={210}
-          sparkle
-          waveAmplitude={0}
-          gradientFrom="#cbcbcb"
-          gradientTo="#cbcbcb"
-        />
-      </div>
+      <PageBackground />
 
       <Link
         href="/home"

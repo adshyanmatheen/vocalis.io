@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-from collections import defaultdict
-from datetime import UTC, datetime, timedelta
-
 from litestar import (
     get,
     post,
@@ -19,6 +16,8 @@ from sqlalchemy.ext.asyncio import (
 
 from app.api.routes.auth_cookies import clear_auth_cookies, set_auth_cookies
 from app.core.config import settings
+from app.core.rate_limiter import register_limiter
+from app.domain.audit.service import log_audit_event
 from app.domain.auth.constants import REFRESH_TOKEN_COOKIE_NAME
 from app.domain.auth.exceptions import (
     AuthenticationError,
@@ -47,9 +46,6 @@ from app.schemas.responses.auth import (
 )
 
 auth_service = AuthService()
-REGISTER_RATE_LIMIT_WINDOW_SECONDS = 60
-REGISTER_RATE_LIMIT_ATTEMPTS = 5
-register_attempts: dict[str, list[datetime]] = defaultdict(list)
 
 
 @post(
@@ -66,16 +62,11 @@ async def register_user(
 ) -> Response[AuthResponse]:
     if settings.app.environment != "testing":
         client_ip = request.client.host if request.client else "unknown"
-        now = datetime.now(UTC)
-        cutoff = now - timedelta(seconds=REGISTER_RATE_LIMIT_WINDOW_SECONDS)
-        register_attempts[client_ip] = [
-            ts for ts in register_attempts[client_ip] if ts > cutoff
-        ]
-        if len(register_attempts[client_ip]) >= REGISTER_RATE_LIMIT_ATTEMPTS:
+        if await register_limiter.is_limited(client_ip):
             raise ClientException(
                 "Too many registration attempts. Please try again later."
             )
-        register_attempts[client_ip].append(now)
+        await register_limiter.record(client_ip)
     try:
         authentication_result = await auth_service.register_user(
             database_session=database_session,
@@ -110,6 +101,16 @@ async def register_user(
         refresh_token=authentication_result.refresh_token,
     )
 
+    await log_audit_event(
+        database_session=database_session,
+        action="auth.register",
+        actor_id=authentication_result.user.id,
+        resource_type="user",
+        resource_id=authentication_result.user.id,
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
+    )
+
     return response
 
 
@@ -121,7 +122,9 @@ async def register_user(
     tags=["Authentication"],
 )
 async def login_user(
-    data: LoginRequest, database_session: AsyncSession
+    request: Request,
+    data: LoginRequest,
+    database_session: AsyncSession,
 ) -> Response[AuthResponse] | AuthResponse:
 
     try:
@@ -136,12 +139,29 @@ async def login_user(
         )
 
     except (InvalidCredentialsError, UserNotFoundError) as error:
+        await log_audit_event(
+            database_session=database_session,
+            action="auth.login.failed",
+            resource_type="user",
+            resource_id=data.username,
+            details={"reason": str(error)},
+            ip_address=request.client.host if request.client else None,
+            user_agent=request.headers.get("user-agent"),
+        )
         raise (NotAuthorizedException(str(error))) from error
 
     except AuthenticationError as error:
         raise (ClientException(str(error))) from error
 
     if isinstance(authentication_result, MFALoginChallenge):
+        await log_audit_event(
+            database_session=database_session,
+            action="auth.login.mfa_challenge",
+            resource_type="user",
+            resource_id=authentication_result.temporary_token,
+            ip_address=request.client.host if request.client else None,
+            user_agent=request.headers.get("user-agent"),
+        )
         return AuthResponse(
             mfa_required=True,
             temporary_token=authentication_result.temporary_token,
@@ -165,6 +185,16 @@ async def login_user(
         response,
         access_token=authentication_result.access_token,
         refresh_token=authentication_result.refresh_token,
+    )
+
+    await log_audit_event(
+        database_session=database_session,
+        action="auth.login",
+        actor_id=authentication_result.user.id,
+        resource_type="user",
+        resource_id=authentication_result.user.id,
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
     )
 
     return response
@@ -226,6 +256,17 @@ async def refresh_user_session(
         access_token=authentication_result.access_token,
         refresh_token=authentication_result.refresh_token,
     )
+
+    await log_audit_event(
+        database_session=database_session,
+        action="auth.refresh",
+        actor_id=authentication_result.user.id,
+        resource_type="session",
+        resource_id=authentication_result.user.id,
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
+    )
+
     return response
 
 
@@ -251,4 +292,15 @@ async def logout_user(
 
     response = Response(LogoutResponse(success=True))
     clear_auth_cookies(response)
+
+    await log_audit_event(
+        database_session=database_session,
+        action="auth.logout",
+        actor_id=authenticated_user.id,
+        resource_type="session",
+        resource_id=authenticated_user.id,
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
+    )
+
     return response

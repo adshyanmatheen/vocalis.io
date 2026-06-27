@@ -88,8 +88,11 @@ class ConnectionManager:
 
     async def run_pruning_loop(self) -> None:
         while True:
-            await asyncio.sleep(PRUNE_INTERVAL_SECONDS)
-            self.prune_stale_connections()
+            try:
+                await asyncio.sleep(PRUNE_INTERVAL_SECONDS)
+                self.prune_stale_connections()
+            except Exception:
+                logger.exception("Error in pruning loop, continuing")
 
     async def send_json(self, *, user_id: int, payload: Any) -> None:
         websocket = self.active_connections.get(user_id)

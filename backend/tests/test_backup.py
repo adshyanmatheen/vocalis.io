@@ -5,46 +5,27 @@ import sqlite3
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
-import pytest
-
 from app.domain.database.backup import (
     _get_backup_files,
-    _get_database_file_path,
     _prune_old_backups,
     create_database_backup,
 )
 
 
-class TestGetDatabaseFilePath:
-    def test_returns_path_object(self) -> None:
-        path = _get_database_file_path()
-        assert isinstance(path, Path)
-
-
 class TestCreateDatabaseBackup:
-    def test_creates_backup_file(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_creates_backup_file(self, tmp_path: Path) -> None:
         db_path = tmp_path / "vocalis.db"
         sqlite3.connect(str(db_path)).close()
 
-        monkeypatch.setattr(
-            "app.domain.database.backup._get_database_file_path",
-            lambda: db_path,
+        backup_path = create_database_backup(
+            override_database_url=f"sqlite+aiosqlite:///{db_path}",
+            override_backup_dir=str(tmp_path / "backups"),
         )
-        monkeypatch.setattr(
-            "app.domain.database.backup._get_backup_dir",
-            lambda: tmp_path / "backups",
-        )
-
-        backup_path = create_database_backup()
         assert backup_path.exists()
         assert backup_path.suffix == ".db"
         assert "vocalis_" in backup_path.stem
 
-    def test_backup_is_valid_sqlite(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_backup_is_valid_sqlite(self, tmp_path: Path) -> None:
         db_path = tmp_path / "vocalis.db"
         conn = sqlite3.connect(str(db_path))
         conn.execute("CREATE TABLE test (id INTEGER PRIMARY KEY)")
@@ -52,37 +33,23 @@ class TestCreateDatabaseBackup:
         conn.commit()
         conn.close()
 
-        monkeypatch.setattr(
-            "app.domain.database.backup._get_database_file_path",
-            lambda: db_path,
+        backup_path = create_database_backup(
+            override_database_url=f"sqlite+aiosqlite:///{db_path}",
+            override_backup_dir=str(tmp_path / "backups"),
         )
-        monkeypatch.setattr(
-            "app.domain.database.backup._get_backup_dir",
-            lambda: tmp_path / "backups",
-        )
-
-        backup_path = create_database_backup()
         backup_conn = sqlite3.connect(str(backup_path))
         cursor = backup_conn.execute("SELECT COUNT(*) FROM test")
         assert cursor.fetchone()[0] == 1
         backup_conn.close()
 
-    def test_creates_backup_dir_if_not_exists(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_creates_backup_dir_if_not_exists(self, tmp_path: Path) -> None:
         db_path = tmp_path / "vocalis.db"
         sqlite3.connect(str(db_path)).close()
 
-        monkeypatch.setattr(
-            "app.domain.database.backup._get_database_file_path",
-            lambda: db_path,
+        backup_path = create_database_backup(
+            override_database_url=f"sqlite+aiosqlite:///{db_path}",
+            override_backup_dir=str(tmp_path / "backups"),
         )
-        monkeypatch.setattr(
-            "app.domain.database.backup._get_backup_dir",
-            lambda: tmp_path / "backups",
-        )
-
-        backup_path = create_database_backup()
         assert backup_path.parent.exists()
         assert backup_path.parent.is_dir()
 

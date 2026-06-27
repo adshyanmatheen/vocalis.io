@@ -1,4 +1,5 @@
 import asyncio
+import logging
 
 from litestar import (
     Litestar,
@@ -22,6 +23,7 @@ from app.core.config import (
 from app.core.csrf import create_csrf_middleware
 from app.core.logging import configure_logging
 from app.core.observability import create_request_observability_middleware
+from app.core.redis import redis_client
 from app.core.security import create_security_headers_middleware
 from app.core.sentry import create_sentry_middleware, init_sentry
 from app.domain.auth.dependencies import (
@@ -46,17 +48,49 @@ from app.domain.models import (
     start_local_model_preload,
 )
 
+logger = logging.getLogger(__name__)
+
 configure_logging()
 init_sentry()
 
 
 async def _startup() -> None:
-    asyncio.create_task(connection_manager.run_pruning_loop())
+    pruning_task = asyncio.create_task(connection_manager.run_pruning_loop())
+
+    def _on_pruning_done(task: asyncio.Task[None]) -> None:
+        if not task.cancelled() and task.exception() is not None:
+            logger.error(
+                "Pruning loop exited with exception", exc_info=task.exception()
+            )
+
+    pruning_task.add_done_callback(_on_pruning_done)
 
     await asyncio.gather(
         initialize_database(),
         start_local_model_preload(),
+        redis_client.connect(settings.app.redis_url),
     )
+
+
+async def _on_shutdown_backup() -> None:
+    try:
+        await asyncio.wait_for(create_database_backup_async(), timeout=30)
+    except Exception:
+        logger.exception("Backup on shutdown failed")
+
+
+async def _on_shutdown_database() -> None:
+    try:
+        await asyncio.wait_for(dispose_database_engine(), timeout=10)
+    except Exception:
+        logger.exception("Database dispose on shutdown failed")
+
+
+async def _on_shutdown_redis() -> None:
+    try:
+        await asyncio.wait_for(redis_client.disconnect(), timeout=5)
+    except Exception:
+        logger.exception("Redis disconnect on shutdown failed")
 
 
 app = Litestar(
@@ -88,7 +122,8 @@ app = Litestar(
         _startup,
     ],
     on_shutdown=[
-        lambda: asyncio.wait_for(create_database_backup_async(), timeout=30),
-        lambda: asyncio.wait_for(dispose_database_engine(), timeout=10),
+        _on_shutdown_backup,
+        _on_shutdown_database,
+        _on_shutdown_redis,
     ],
 )

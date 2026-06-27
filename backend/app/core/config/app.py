@@ -89,17 +89,19 @@ class AppSettings(BaseSettings):
 
     backup_retention_days: int = Field(default=30, ge=1)
 
+    redis_url: str | None = Field(default=None)
+
     sentry_dsn: str | None = Field(default=None)
 
     @field_validator("database_url", mode="before")
     @classmethod
-    def normalize_sqlite_database_url(cls, value: str) -> str:
+    def resolve_database_url(cls, value: str) -> str:
         if not isinstance(value, str):
             return value
         sqlite_prefix = "sqlite+aiosqlite:///./"
-        if not value.startswith(sqlite_prefix):
-            return value
-        backend_root = Path(__file__).resolve().parents[3]
-        relative_path = value.removeprefix(sqlite_prefix)
-        database_path = (backend_root / relative_path).resolve()
-        return f"sqlite+aiosqlite:///{database_path.as_posix()}"
+        if value.startswith(sqlite_prefix):
+            backend_root = Path(__file__).resolve().parents[3]
+            relative_path = value.removeprefix(sqlite_prefix)
+            database_path = (backend_root / relative_path).resolve()
+            return f"sqlite+aiosqlite:///{database_path.as_posix()}"
+        return value

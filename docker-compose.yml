@@ -1,4 +1,36 @@
 services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: vocalis-postgres
+    environment:
+      POSTGRES_USER: vocalis
+      POSTGRES_PASSWORD: vocalis
+      POSTGRES_DB: vocalis
+    ports:
+      - "5432:5432"
+    volumes:
+      - vocalis-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vocalis -d vocalis"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - vocalis-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: vocalis-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - vocalis-network
+
   backend:
     build:
       context: ./backend
@@ -13,13 +45,14 @@ services:
       - LOG_LEVEL=INFO
       - HOST=0.0.0.0
       - PORT=8000
-      - DATABASE_URL=sqlite+aiosqlite:///./vocalis.db
+      - DATABASE_URL=postgresql+asyncpg://vocalis:vocalis@postgres:5432/vocalis
+      - REDIS_URL=redis://redis:6379/0
       - JWT_SECRET_KEY=${JWT_SECRET_KEY:-your-secret-key-here-change-in-production}
       - HUGGINGFACE_MODEL_ID=matheetharanadshyan/wav2vec2-svarah
       - HUGGINGFACE_CACHE_DIR=.cache/huggingface
       - USE_GROQ=${USE_GROQ:-false}
       - GROQ_API_KEY=${GROQ_API_KEY:-}
-       - GROQ_MODEL=llama-4-scout-17b-16e-instruct
+      - GROQ_MODEL=llama-4-scout-17b-16e-instruct
       - DEVICE=cpu
       - ALIGNMENT_QUANTIZATION_BACKEND=none
       - SAMPLE_RATE=16000
@@ -33,9 +66,13 @@ services:
       - BACKUP_RETENTION_DAYS=30
       - CORS_ALLOWED_ORIGINS=["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3010", "http://127.0.0.1:3010"]
     volumes:
-      - vocalis-db:/app/vocalis.db
       - vocalis-cache:/app/.cache
       - vocalis-backups:/app/backups
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/api/v1/health"]
       interval: 10s
@@ -53,12 +90,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-      - /app/.next
     depends_on:
       backend:
         condition: service_healthy
@@ -72,7 +105,7 @@ services:
       - vocalis-network
 
 volumes:
-  vocalis-db:
+  vocalis-pgdata:
     driver: local
   vocalis-cache:
     driver: local
