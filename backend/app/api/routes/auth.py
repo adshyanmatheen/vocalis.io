@@ -62,11 +62,19 @@ async def register_user(
 ) -> Response[AuthResponse]:
     if settings.app.environment != "testing":
         client_ip = request.client.host if request.client else "unknown"
-        if await register_limiter.is_limited(client_ip):
+        rate_limit = await register_limiter.check(client_ip)
+        request.state.rate_limit = rate_limit
+        if rate_limit.remaining <= 0:
             raise ClientException(
-                "Too many registration attempts. Please try again later."
+                "Too many registration attempts. Please try again later.",
+                headers={
+                    "X-RateLimit-Limit": str(rate_limit.limit),
+                    "X-RateLimit-Remaining": "0",
+                    "X-RateLimit-Reset": str(rate_limit.reset_at),
+                },
             )
         await register_limiter.record(client_ip)
+        request.state.rate_limit = await register_limiter.check(client_ip)
     try:
         authentication_result = await auth_service.register_user(
             database_session=database_session,

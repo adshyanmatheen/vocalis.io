@@ -29,9 +29,19 @@ async def perform_alignment(
 ) -> AlignmentResponseSchema:
 
     client_ip = request.client.host if request.client else "unknown"
-    if await alignment_limiter.is_limited(client_ip):
-        raise ClientException("Too many alignment requests. Please try again later.")
+    rate_limit = await alignment_limiter.check(client_ip)
+    request.state.rate_limit = rate_limit
+    if rate_limit.remaining <= 0:
+        raise ClientException(
+            "Too many alignment requests. Please try again later.",
+            headers={
+                "X-RateLimit-Limit": str(rate_limit.limit),
+                "X-RateLimit-Remaining": "0",
+                "X-RateLimit-Reset": str(rate_limit.reset_at),
+            },
+        )
     await alignment_limiter.record(client_ip)
+    request.state.rate_limit = await alignment_limiter.check(client_ip)
 
     validate_audio_payload(data.audio_bytes)
 

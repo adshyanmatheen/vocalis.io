@@ -23,6 +23,7 @@ from app.core.config import (
 from app.core.csrf import create_csrf_middleware
 from app.core.logging import configure_logging
 from app.core.observability import create_request_observability_middleware
+from app.core.rate_limit_middleware import RateLimitHeadersMiddleware
 from app.core.redis import redis_client
 from app.core.security import create_security_headers_middleware
 from app.core.sentry import create_sentry_middleware, init_sentry
@@ -117,6 +118,7 @@ app = Litestar(
         DefineMiddleware(create_sentry_middleware),
         DefineMiddleware(create_security_headers_middleware),
         DefineMiddleware(create_request_observability_middleware),
+        DefineMiddleware(RateLimitHeadersMiddleware),
     ],
     on_startup=[
         _startup,
