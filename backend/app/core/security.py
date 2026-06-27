@@ -1,6 +1,41 @@
 from __future__ import annotations
 
+import secrets
+
 from litestar.types import ASGIApp, Message, Receive, Scope, Send
+
+CSP_DEFAULT_SRC = [
+    "'self'",
+    "https://fonts.googleapis.com",
+    "https://fonts.gstatic.com",
+    "https://ka-f.fontawesome.com",
+]
+CSP_SCRIPT_SRC = ["'self'"]
+CSP_STYLE_SRC = [
+    "'self'",
+    "'unsafe-inline'",
+    "https://fonts.googleapis.com",
+]
+CSP_IMG_SRC = ["'self'", "data:", "blob:"]
+CSP_CONNECT_SRC = ["'self'", "ws:", "wss:"]
+CSP_FONT_SRC = ["'self'", "https://fonts.gstatic.com", "https://ka-f.fontawesome.com"]
+CSP_FRAME_ANCESTORS = ["'none'"]
+CSP_FORM_ACTION = ["'self'"]
+
+
+def _build_csp(nonce: str) -> str:
+    directives = [
+        f"default-src {' '.join(CSP_DEFAULT_SRC)}",
+        f"script-src {' '.join(CSP_SCRIPT_SRC)} 'nonce-{nonce}' 'strict-dynamic'",
+        f"style-src {' '.join(CSP_STYLE_SRC)}",
+        f"img-src {' '.join(CSP_IMG_SRC)}",
+        f"connect-src {' '.join(CSP_CONNECT_SRC)}",
+        f"font-src {' '.join(CSP_FONT_SRC)}",
+        "frame-ancestors " + " ".join(CSP_FRAME_ANCESTORS),
+        f"form-action {' '.join(CSP_FORM_ACTION)}",
+        "base-uri 'self'",
+    ]
+    return "; ".join(directives)
 
 
 class SecurityHeadersMiddleware:
@@ -11,6 +46,9 @@ class SecurityHeadersMiddleware:
         if scope["type"] != "http":
             await self.app(scope, receive, send)
             return
+
+        nonce = secrets.token_hex(16)
+        csp = _build_csp(nonce)
 
         async def send_wrapper(message: Message) -> None:
             if message["type"] == "http.response.start":
@@ -28,6 +66,7 @@ class SecurityHeadersMiddleware:
                         b"permissions-policy",
                         b"geolocation=(), microphone=self, camera=()",
                     ),
+                    (b"content-security-policy", csp.encode("ascii")),
                 ]
                 for header_name, header_value in security_headers:
                     if not any(h[0].lower() == header_name for h in headers):
