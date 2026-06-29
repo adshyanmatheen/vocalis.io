@@ -41,7 +41,7 @@
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6.0.2",
     "babel-plugin-react-compiler": "1.0.0",
-    "eslint": "^9.7",
+    "eslint": "^10.6",
     "eslint-config-next": "16.2.9",
     "jsdom": "^29.1.1",
     "prettier": "3.8.4",
