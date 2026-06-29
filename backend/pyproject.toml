@@ -5,11 +5,11 @@ description = "This Directory Contains The Necessary Files And Packages For The 
 requires-python = ">=3.14"
 dependencies = [
     "aiosqlite>=0.22.1",
-    "alembic>=1.18.4",
+    "alembic>=1.18.5",
     "argon2-cffi>=25.1.0",
     "redis[hiredis]>=5.3.0",
     "g2p-en>=2.1.0",
-    "greenlet>=3.5.1",
+    "greenlet>=3.5.3",
     "groq>=1.4.0",
     "litestar[standard]>=2.24.0",
     "nltk",
@@ -26,7 +26,7 @@ dependencies = [
     "qrcode[pil]>=8.2",
     "scipy>=1.18.0",
     "soundfile>=0.14.0",
-    "sqlalchemy[asyncio]>=2.0.50",
+    "sqlalchemy[asyncio]>=2.0.51",
     "torch>=2.12.1",
     "torchao>=0.17.0",
     "transformers>=5.12.1",
