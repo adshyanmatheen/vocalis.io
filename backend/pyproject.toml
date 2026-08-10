@@ -38,8 +38,8 @@ dev = [
     "httpx>=0.28.1",
     "pytest>=9.1.1",
     "pytest-asyncio>=1.4.0",
-    "ruff>=0.15.18",
-    "pyrefly>=1.1.1",
+    "ruff>=0.16.1",
+    "pyrefly>=1.2.0",
 ]
 
 [tool.uv.sources]
